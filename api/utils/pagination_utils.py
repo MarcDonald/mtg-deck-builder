@@ -1,13 +1,19 @@
 def get_page_number(request):
-    if request.args.get('page_num'):
-        return request.args.get('page_num')
-    return 1
+    try:
+        if request.args.get('page_num'):
+            return int(request.args.get('page_num'))
+        return 1
+    except ValueError:
+        raise ValueError("page_num must be an integer")
 
 
 def get_page_size(request):
-    if request.args.get('page_size'):
-        return request.args.get('page_size')
-    return 10
+    try:
+        if request.args.get('page_size'):
+            return int(request.args.get('page_size'))
+        return 10
+    except ValueError:
+        raise ValueError("page_size must be an integer")
 
 
 def get_page_start(page_size, page_num):
