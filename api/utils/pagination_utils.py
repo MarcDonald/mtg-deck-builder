@@ -24,4 +24,6 @@ def get_page_start(page_size, page_num):
 
 
 def get_max_page(page_size, result_count):
+    if result_count == 0:
+        return 1
     return int(math.ceil(int(result_count) / int(page_size)))

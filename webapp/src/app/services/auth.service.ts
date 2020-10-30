@@ -49,4 +49,8 @@ export class AuthService {
       })
     );
   }
+
+  get username(): string {
+    return localStorage.getItem('username');
+  }
 }

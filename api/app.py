@@ -175,9 +175,9 @@ def add_card_to_deck(deck_id, card_id):
         return make_error_response("{}".format(err), 400)
 
 
-@app.route(prefix + '/decks/<string:deck_id>/<string:card_deck_id>', methods=['DELETE'])
-def delete_card_from_deck(deck_id, card_deck_id):
-    deck_presenter.delete_card_from_deck(deck_id, card_deck_id)
+@app.route(prefix + '/decks/<string:deck_id>/<string:deck_card_id>', methods=['DELETE'])
+def delete_card_from_deck(deck_id, deck_card_id):
+    deck_presenter.delete_card_from_deck(deck_id, deck_card_id)
     return make_response(jsonify({}), 200)
 
 

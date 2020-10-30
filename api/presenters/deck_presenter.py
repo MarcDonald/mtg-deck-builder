@@ -33,7 +33,8 @@ def get_deck_details(deck_id):
             card_id = str(card['_id'])
             del card['_id']
             card['id'] = card_id
-            card['card_deck_id'] = str(card['card_deck_id'])
+            card['cardDeckId'] = str(card['deck_card_id'])
+            del card['deck_card_id']
         return deck
     raise NotFoundError()
 
@@ -73,9 +74,9 @@ def add_card_to_deck(deck_id, card_id):
     if deck is not None:
         card = card_repository.get_card_details(card_id)
         if card is not None:
-            card_deck_id = deck_repository.add_card_to_deck(deck_id, card_id)
+            deck_card_id = deck_repository.add_card_to_deck(deck_id, card_id)
             return {
-                "cardDeckId": str(card_deck_id)
+                "cardDeckId": str(deck_card_id)
             }
         else:
             raise NotFoundError("Card could not be found")
@@ -83,11 +84,11 @@ def add_card_to_deck(deck_id, card_id):
         raise NotFoundError("Deck could not be found")
 
 
-def delete_card_from_deck(deck_id, card_deck_id):
+def delete_card_from_deck(deck_id, deck_card_id):
     validate_id(deck_id, "Deck ID")
-    validate_id(card_deck_id, "Card ID")
+    validate_id(deck_card_id, "Card ID")
     deck = deck_repository.get_deck_details(deck_id)
     if deck is not None:
-        return deck_repository.delete_card_from_deck(deck_id, card_deck_id)
+        return deck_repository.delete_card_from_deck(deck_id, deck_card_id)
     else:
         raise NotFoundError("Deck could not be found")

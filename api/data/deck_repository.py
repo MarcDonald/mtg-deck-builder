@@ -43,17 +43,17 @@ def get_user_deck_count(username):
 
 def add_card_to_deck(deck_id, card_id):
     card = card_repository.get_card_details(card_id)
-    # card_deck_id is the id of the card within the deck, this is so a single card can be removed without removing
+    # deck_card_id is the id of the card within the deck, this is so a single card can be removed without removing
     # all cards with the same ID
-    card_deck_id = ObjectId()
-    card['card_deck_id'] = card_deck_id
+    deck_card_id = ObjectId()
+    card['deck_card_id'] = deck_card_id
     decks.update_one({"_id": ObjectId(deck_id)}, {"$push": {
         "cards": card
     }})
-    return card_deck_id
+    return deck_card_id
 
 
-def delete_card_from_deck(deck_id, card_deck_id):
+def delete_card_from_deck(deck_id, deck_card_id):
     return decks.update_one({"_id": ObjectId(deck_id)}, {"$pull": {
-        "cards": {"card_deck_id": ObjectId(card_deck_id)}
+        "cards": {"deck_card_id": ObjectId(deck_card_id)}
     }})
