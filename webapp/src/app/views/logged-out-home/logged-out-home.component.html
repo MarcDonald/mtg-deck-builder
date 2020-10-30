@@ -1,3 +1,15 @@
-<p>Logged out</p>
-<app-login></app-login>
-<app-register></app-register>
+<div class="container">
+  <header><h1>MTG Deck Builder</h1></header>
+  <div class="grid">
+    <div class="whitespace">
+    </div>
+    <div class="authentication">
+      <div class="tabs">
+        <button class="tab-button tab-button-left {{selectedAuthTab === 'Login' ? 'tab-button-selected' : 'tab-button-inactive'}}" (click)="switchTab('Login')">Login</button>
+        <button class="tab-button tab-button-right {{selectedAuthTab === 'Register' ? 'tab-button-selected' : 'tab-button-inactive'}}" (click)="switchTab('Register')">Register</button>
+      </div>
+      <app-login *ngIf="selectedAuthTab === 'Login'"></app-login>
+      <app-register *ngIf="selectedAuthTab === 'Register'"></app-register>
+    </div>
+  </div>
+</div>

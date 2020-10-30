@@ -42,8 +42,10 @@ export class UserDecksComponent implements OnInit {
     this.deckService
       .getDecksForUser(this.authService.username, this.currentPage)
       .pipe(catchError((err, caught) => (this.error = err.message)))
-      .subscribe((page) => {
-        this.page = page;
+      .subscribe((page: Page<Array<DeckShort>>) => {
+        if (page) {
+          this.page = page;
+        }
       });
   }
 }

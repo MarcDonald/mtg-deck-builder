@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logged-out-home',
@@ -8,7 +6,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./logged-out-home.component.scss'],
 })
 export class LoggedOutHomeComponent implements OnInit {
+  selectedAuthTab: 'Login' | 'Register' = 'Login';
   constructor() {}
 
   ngOnInit(): void {}
+
+  switchTab(switchTo: 'Login' | 'Register') {
+    this.selectedAuthTab = switchTo;
+  }
 }

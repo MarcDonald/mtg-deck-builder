@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   username = new FormControl('');
   password = new FormControl('');
+  confirmPassword = new FormControl('');
   givenName = new FormControl('');
   familyName = new FormControl('');
   error: null | string = null;
