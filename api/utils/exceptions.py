@@ -5,5 +5,6 @@ class NotFoundError(Exception):
 class InvalidIdError(Exception):
     pass
 
+
 class AlreadyExistsError(Exception):
     pass

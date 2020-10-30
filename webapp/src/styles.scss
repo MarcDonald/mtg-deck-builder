@@ -23,7 +23,7 @@ button:hover {
   background-color: $brand-light;
 }
 
-button:focus {
+button:focus-visible {
   background-color: $brand-light;
 }
 
@@ -31,4 +31,13 @@ button:disabled {
   background-color: $lighter-gray;
   color: $disabled-button;
   cursor: not-allowed;
+}
+
+.fullscreen {
+  min-height: 100vh;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  position: absolute;
 }

@@ -1,0 +1,19 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.deck-drawer {
+  background-color: white;
+}
+
+.main-content {
+  background-color: lightgray;
+  grid-column-start: 2;
+  grid-column: span 3 / span 3;
+
+}
+
+.card-drawer {
+  background-color: white;
+}

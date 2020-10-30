@@ -3,6 +3,7 @@ import { ApiInteractorService } from './api-interactor.service';
 import { Observable } from 'rxjs';
 import DeckShort from '../models/deck-short';
 import Page from '../models/page';
+import DeckFull from '../models/deck-full';
 
 @Injectable({
   providedIn: 'root',
@@ -17,5 +18,9 @@ export class DeckService {
     return this.apiInteractor.get(
       `decks/user/${username}?page_num=${pageNumber}`
     );
+  }
+
+  getDeck(deckId: string): Observable<DeckFull> {
+    return this.apiInteractor.get(`decks/${deckId}`);
   }
 }

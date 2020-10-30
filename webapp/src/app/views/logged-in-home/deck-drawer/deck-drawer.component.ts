@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import DeckShort from '../../models/deck-short';
-import { DeckService } from '../../services/deck.service';
-import { AuthService } from '../../services/auth.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DeckService } from '../../../services/deck.service';
+import { AuthService } from '../../../services/auth.service';
+import Page from '../../../models/page';
+import DeckShort from '../../../models/deck-short';
 import { catchError } from 'rxjs/operators';
-import Page from '../../models/page';
 
 @Component({
-  selector: 'app-user-decks',
-  templateUrl: './user-decks.component.html',
-  styleUrls: ['./user-decks.component.scss'],
+  selector: 'app-deck-drawer',
+  templateUrl: './deck-drawer.component.html',
+  styleUrls: ['./deck-drawer.component.scss'],
 })
-export class UserDecksComponent implements OnInit {
+export class DeckDrawerComponent implements OnInit {
   constructor(
     private deckService: DeckService,
     private authService: AuthService
   ) {}
+  @Output() deckSelected: EventEmitter<string> = new EventEmitter();
 
   page: Page<DeckShort[]>;
   currentPage: number = 1;
@@ -47,5 +48,9 @@ export class UserDecksComponent implements OnInit {
           this.page = page;
         }
       });
+  }
+
+  selectDeck(deckId: string) {
+    this.deckSelected.emit(deckId);
   }
 }

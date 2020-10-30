@@ -1,4 +1,12 @@
-<p>Hello, {{user.givenName}} {{user.familyName}}</p>
-<button (click)="logout()">Logout</button>
-<app-user-decks></app-user-decks>
-<app-card-search></app-card-search>
+<div class="grid fullscreen">
+  <div class="deck-drawer">
+    <app-deck-drawer (deckSelected)="selectDeck($event)"></app-deck-drawer>
+  </div>
+  <div class="main-content">
+    <app-header></app-header>
+    <app-deck-display *ngIf="selectedDeck" [deckId]="selectedDeck"></app-deck-display>
+  </div>
+  <div class="card-drawer">
+    <app-card-search></app-card-search>
+  </div>
+</div>

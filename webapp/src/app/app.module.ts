@@ -13,9 +13,10 @@ import { LoggedOutHomeComponent } from './views/logged-out-home/logged-out-home.
 import { LoggedInHomeComponent } from './views/logged-in-home/logged-in-home.component';
 import { LoginComponent } from './views/logged-out-home/login/login.component';
 import { RegisterComponent } from './views/logged-out-home/register/register.component';
-import { UserDecksComponent } from './views/user-decks/user-decks.component';
-import { UserDeckListComponent } from './views/user-decks/user-deck-list/user-deck-list.component';
-import { UserDeckShortItemComponent } from './views/user-decks/user-deck-list/user-deck-short-item/user-deck-short-item.component';
+import { UserDeckShortItemComponent } from './views/logged-in-home/deck-drawer/user-deck-short-item/user-deck-short-item.component';
+import { HeaderComponent } from './components/header/header.component';
+import { DeckDrawerComponent } from './views/logged-in-home/deck-drawer/deck-drawer.component';
+import { DeckDisplayComponent } from './views/logged-in-home/deck-display/deck-display.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,10 @@ import { UserDeckShortItemComponent } from './views/user-decks/user-deck-list/us
     LoggedInHomeComponent,
     LoginComponent,
     RegisterComponent,
-    UserDecksComponent,
-    UserDeckListComponent,
     UserDeckShortItemComponent,
+    HeaderComponent,
+    DeckDrawerComponent,
+    DeckDisplayComponent,
   ],
   imports: [
     BrowserModule,

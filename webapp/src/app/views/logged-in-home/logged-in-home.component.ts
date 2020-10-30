@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import User from '../../models/user';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-logged-in-home',
@@ -10,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class LoggedInHomeComponent implements OnInit {
   user: User;
+  private selectedDeckSubject = new BehaviorSubject<string>('');
+  selectedDeck = this.selectedDeckSubject.asObservable();
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -27,5 +30,9 @@ export class LoggedInHomeComponent implements OnInit {
         this.router.navigateByUrl('/');
       }
     });
+  }
+
+  selectDeck(deckId: string) {
+    this.selectedDeckSubject.next(deckId);
   }
 }

@@ -4,6 +4,8 @@
   <button (click)="goToNextPage()" [disabled]="currentPage === page?.maxPage">Next</button>
   <p>Page: {{currentPage}}/{{page.maxPage}}</p>
   <p>Results: {{page.count}}</p>
-  <app-user-deck-list [decks]="page.data"></app-user-deck-list>
+  <div *ngFor="let deck of page.data">
+    <app-user-deck-short-item [deck]="deck" (click)="selectDeck(deck.id)"></app-user-deck-short-item>
+  </div>
 </div>
 

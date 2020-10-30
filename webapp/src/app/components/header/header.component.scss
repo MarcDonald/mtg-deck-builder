@@ -1,0 +1,32 @@
+header {
+  background-color: white;
+  border-radius: 0.5rem;
+  margin: 1em;
+  padding: 1em;
+  text-align: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+.title {
+  grid-column-start: 2;
+  grid-column: span 4 / span 4;
+}
+
+.left {
+  text-align: start;
+}
+
+.right {
+  text-align: end;
+}
+
+.right button {
+  margin: 0
+}
