@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import User from '../../models/user';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
+import { DeckService } from '../../services/deck.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-logged-in-home',
@@ -10,11 +12,17 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./logged-in-home.component.scss'],
 })
 export class LoggedInHomeComponent implements OnInit {
+  private refreshEmitter = new EventEmitter<boolean>();
+  refresh = this.refreshEmitter.asObservable();
   private selectedDeckSubject = new BehaviorSubject<string | null>(null);
   selectedDeck = this.selectedDeckSubject.asObservable();
   user: User;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private deckService: DeckService
+  ) {}
 
   ngOnInit(): void {
     this.authService.user.subscribe((user) => {
@@ -34,6 +42,22 @@ export class LoggedInHomeComponent implements OnInit {
 
   selectDeck(deckId: string) {
     this.selectedDeckSubject.next(deckId);
+  }
+
+  addCard(cardId: string) {
+    this.deckService
+      .addCardToDeck(this.selectedDeckSubject.value, cardId)
+      .pipe(
+        catchError((err, caught) => {
+          console.error(err);
+          return of(null);
+        })
+      )
+      .subscribe((value) => {
+        this.refreshEmitter.emit(true);
+        // Refreshes cards on deck display
+        this.selectDeck(this.selectedDeckSubject.value);
+      });
   }
 
   get showDeck(): boolean {

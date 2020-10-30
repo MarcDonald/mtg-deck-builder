@@ -5,6 +5,10 @@ import DeckShort from '../models/deck-short';
 import Page from '../models/page';
 import DeckFull from '../models/deck-full';
 
+interface AddCardToDeckResponse {
+  cardDeckId: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -22,5 +26,12 @@ export class DeckService {
 
   getDeck(deckId: string): Observable<DeckFull> {
     return this.apiInteractor.get(`decks/${deckId}`);
+  }
+
+  addCardToDeck(
+    deckId: string,
+    cardId: string
+  ): Observable<AddCardToDeckResponse> {
+    return this.apiInteractor.post(`decks/${deckId}/${cardId}`);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import Page from '../../models/page';
 
 @Component({
@@ -8,14 +8,14 @@ import Page from '../../models/page';
   styleUrls: ['./page-controls.component.scss'],
 })
 export class PageControlsComponent implements OnInit {
-  private goToPageSubject: BehaviorSubject<number> = new BehaviorSubject();
+  private goToPageSubject: BehaviorSubject<number> = new BehaviorSubject(1);
 
   currentPage: number = 1;
 
   @Input() page: Page<any>;
 
   @Output()
-  goToPage: PageNavigationAction = this.goToPageSubject.asObservable();
+  goToPage: Observable<number> = this.goToPageSubject.asObservable();
 
   constructor() {}
 

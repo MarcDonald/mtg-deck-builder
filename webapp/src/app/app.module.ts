@@ -6,9 +6,8 @@ import { AppComponent } from './app.component';
 import { CardSearchBarComponent } from './views/card-search/card-search-bar/card-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardSearchView } from './views/card-search/card-search.view';
-import { CardSearchResultsComponent } from './views/card-search/card-search-results/card-search-results.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CardSearchResultItemComponent } from './views/card-search/card-search-results/card-search-result-item/card-search-result-item.component';
+import { CardSearchResultItemComponent } from './views/card-search/card-search-result-item/card-search-result-item.component';
 import { LoggedOutHomeComponent } from './views/logged-out-home/logged-out-home.component';
 import { LoggedInHomeComponent } from './views/logged-in-home/logged-in-home.component';
 import { LoginComponent } from './views/logged-out-home/login/login.component';
@@ -24,7 +23,6 @@ import { PageControlsComponent } from './components/page-controls/page-controls.
     AppComponent,
     CardSearchBarComponent,
     CardSearchView,
-    CardSearchResultsComponent,
     CardSearchResultItemComponent,
     LoggedOutHomeComponent,
     LoggedInHomeComponent,

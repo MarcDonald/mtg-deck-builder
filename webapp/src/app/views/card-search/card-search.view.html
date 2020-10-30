@@ -1,9 +1,11 @@
-<h4>Search</h4>
-<app-card-search-bar (search)="onSearch($event)"></app-card-search-bar>
-<div *ngIf="page != null">
-  <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
-  <button (click)="goToNextPage()" [disabled]="currentPage === page?.maxPage">Next</button>
-  <p>Page: {{currentPage}}/{{page.maxPage}}</p>
-  <p>Results: {{page.count}}</p>
-  <app-card-search-results [cards]="page.data"></app-card-search-results>
+<div class="container">
+  <h2>Add Cards</h2>
+  <app-card-search-bar (search)="onSearch($event)"></app-card-search-bar>
+  <div *ngIf="page != null">
+    <app-page-controls [page]="page" (goToPage)="goToPage($event)"></app-page-controls>
+    <div *ngFor="let card of page.data">
+      <app-card-search-result-item [card]="card" (added)="addCard($event)"></app-card-search-result-item>
+    </div>
+  </div>
 </div>
+

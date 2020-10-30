@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CardService } from '../../services/card.service';
 import Card from '../../models/card';
 import Page from '../../models/page';
@@ -11,39 +11,32 @@ import Page from '../../models/page';
 export class CardSearchView implements OnInit {
   private searchTerm: string;
   page: Page<Array<Card>> = null;
-  currentPage: number = 1;
+  @Output() cardAdded: EventEmitter<string> = new EventEmitter();
 
   constructor(private cardService: CardService) {}
 
   ngOnInit(): void {}
 
   onSearch(searchTerm: string) {
-    this.currentPage = 1;
     if (searchTerm && typeof searchTerm === 'string') {
       this.searchTerm = searchTerm;
-      this.makeApiRequest();
+      this.makeApiRequest(1);
     }
   }
 
-  makeApiRequest() {
+  makeApiRequest(pageNumber: number) {
     this.cardService
-      .searchCards(this.searchTerm, this.currentPage)
+      .searchCards(this.searchTerm, pageNumber)
       .subscribe((page) => {
         this.page = page;
       });
   }
 
-  goToNextPage() {
-    if (this.currentPage != this.page?.maxPage) {
-      this.currentPage += 1;
-      this.makeApiRequest();
-    }
+  goToPage(pageToGoTo: number) {
+    this.makeApiRequest(pageToGoTo);
   }
 
-  goToPreviousPage() {
-    if (this.currentPage != 1) {
-      this.currentPage -= 1;
-      this.makeApiRequest();
-    }
+  addCard(cardId: string) {
+    this.cardAdded.emit(cardId);
   }
 }

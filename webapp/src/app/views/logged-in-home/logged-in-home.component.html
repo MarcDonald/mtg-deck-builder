@@ -1,6 +1,6 @@
 <div class="grid fullscreen">
   <div class="deck-drawer">
-    <app-deck-drawer (deckSelected)="selectDeck($event)"></app-deck-drawer>
+    <app-deck-drawer [shouldRefresh]="refresh" (deckSelected)="selectDeck($event)"></app-deck-drawer>
   </div>
   <div class="main-content">
     <app-header></app-header>
@@ -11,6 +11,6 @@
     </div>
   </div>
   <div class="card-drawer" *ngIf="showDeck">
-    <app-card-search></app-card-search>
+    <app-card-search (cardAdded)="addCard($event)"></app-card-search>
   </div>
 </div>

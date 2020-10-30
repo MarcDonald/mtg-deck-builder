@@ -1,5 +1,4 @@
-<label>
-  Search:
-  <input type="search" [formControl]="searchTerm" (search)="onSubmit()" (submit)="onSubmit()">
-</label>
-<button type="submit" (click)="onSubmit()">Search</button>
+<div class="container">
+  <input type="search" placeholder="Search" [formControl]="searchTerm" (search)="onSubmit()" (submit)="onSubmit()">
+  <button type="submit" (click)="onSubmit()">Search</button>
+</div>
