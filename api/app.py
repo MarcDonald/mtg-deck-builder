@@ -2,7 +2,7 @@ from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
 
 from presenters import card_presenter, user_presenter, deck_presenter
-from utils.exceptions import NotFoundError, InvalidIdError
+from utils.exceptions import NotFoundError, InvalidIdError, AlreadyExistsError
 from utils.pagination_utils import get_page_size, get_page_number
 from utils.response_utils import make_error_response, make_paginated_response
 
@@ -15,12 +15,17 @@ CORS(app)
 ####
 # AUTH ROUTES
 ###
-@app.route(prefix + '/login', methods=['GET'])
+@app.route(prefix + '/login', methods=['POST'])
 def login():
-    return make_response(jsonify({}), 200)
+    login_info = request.get_json()
+    try:
+        user = user_presenter.login(login_info['username'], login_info['password'])
+        return make_response(user, 200)
+    except NotFoundError:
+        return make_error_response("Invalid username or password", 401)
 
 
-@app.route(prefix + '/logout', methods=['GET'])
+@app.route(prefix + '/logout', methods=['POST'])
 def logout():
     return make_response(jsonify({}), 200)
 
@@ -51,19 +56,23 @@ def get_card_details(card_id):
 ###
 # USER ROUTES
 ###
+# TODO password
 @app.route(prefix + '/users', methods=['POST'])
 def register_new_user():
-    if "username" in request.form and "givenName" in request.form and "familyName" in request.form:
+    login_info = request.get_json()
+    if "username" in login_info and "givenName" in login_info and "familyName" in login_info:
         try:
-            result = user_presenter.create_user(request.form['username'],
-                                                request.form['givenName'],
-                                                request.form['familyName']
+            result = user_presenter.create_user(login_info['username'],
+                                                login_info['givenName'],
+                                                login_info['familyName']
                                                 )
             return make_response(jsonify(result), 201)
+        except AlreadyExistsError as err:
+            return make_error_response("{}".format(err), 400)
         except Exception as err:
             return make_error_response("{}".format(err), 500)
     else:
-        return make_error_response("Username, givenName, and familyName must be in form", 400)
+        return make_error_response("Username, givenName, and familyName must be in body", 400)
 
 
 @app.route(prefix + '/users/<string:username>', methods=['GET'])
@@ -77,17 +86,18 @@ def get_user(username):
 
 @app.route(prefix + '/users', methods=['PUT'])
 def update_user():
-    if "username" in request.form and "givenName" in request.form and "familyName" in request.form:
+    login_info = request.get_json()
+    if "username" in login_info and "givenName" in login_info and "familyName" in login_info:
         try:
-            result = user_presenter.update_user(request.form['username'],
-                                                request.form['givenName'],
-                                                request.form['familyName']
+            result = user_presenter.update_user(login_info['username'],
+                                                login_info['givenName'],
+                                                login_info['familyName']
                                                 )
             return make_response(jsonify(result), 200)
         except Exception as err:
             return make_error_response("{}".format(err), 500)
     else:
-        return make_error_response("Username, givenName, and familyName must be in form", 400)
+        return make_error_response("Username, givenName, and familyName must be in body", 400)
 
 
 @app.route(prefix + '/users/<string:username>', methods=['DELETE'])
@@ -122,28 +132,30 @@ def get_specific_deck(deck_id):
 
 @app.route(prefix + '/decks', methods=['POST'])
 def create_new_deck():
-    if "username" in request.form and "deckName" in request.form:
+    login_info = request.get_json()
+    if "username" in login_info and "deckName" in login_info:
         try:
-            result = deck_presenter.create_deck(request.form['username'], request.form['deckName'])
+            result = deck_presenter.create_deck(login_info['username'], login_info['deckName'])
             return make_response(jsonify(result), 201)
         except Exception as err:
             return make_error_response("{}".format(err), 500)
     else:
-        return make_error_response("Username and deckName must be in form", 400)
+        return make_error_response("Username and deckName must be in body", 400)
 
 
 @app.route(prefix + '/decks/<string:deck_id>', methods=['PUT'])
 def update_deck_details(deck_id):
-    if "deckName" in request.form:
+    login_info = request.get_json()
+    if "deckName" in login_info:
         try:
-            result = deck_presenter.update_deck_details(deck_id, request.form['deckName'])
+            result = deck_presenter.update_deck_details(deck_id, login_info['deckName'])
             return make_response(jsonify(result), 201)
         except NotFoundError as err:
             return make_error_response("Deck could not be found", 404)
         except Exception as err:
             return make_error_response("{}".format(err), 500)
     else:
-        return make_error_response("deckName must be in form", 400)
+        return make_error_response("deckName must be in body", 400)
 
 
 @app.route(prefix + '/decks/<string:deck_id>', methods=['DELETE'])

@@ -11,4 +11,8 @@ export class ApiInteractorService {
   get(route: string): Observable<any> {
     return this.http.get(`http://localhost:5000/api/v1/${route}`);
   }
+
+  post(route: string, body: any | null = null): Observable<any> {
+    return this.http.post(`http://localhost:5000/api/v1/${route}`, body);
+  }
 }

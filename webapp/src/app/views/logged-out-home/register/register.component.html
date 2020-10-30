@@ -1,0 +1,22 @@
+<h3>Register</h3>
+<form id="register">
+  <label for="username">Username
+    <input id="username" type="text" placeholder="Username" [formControl]="username" />
+  </label>
+
+  <label for="password">Password
+    <input id="password" type="password" [formControl]="password" />
+  </label>
+
+  <label for="givenName">Username
+    <input id="givenName" type="text" placeholder="Given Name" [formControl]="givenName" />
+  </label>
+
+  <label for="familyName">Username
+    <input id="familyName" type="text" placeholder="Family Name" [formControl]="familyName" />
+  </label>
+
+  <button (click)="register()">Register</button>
+
+  <p *ngIf="error">{{error}}</p>
+</form>

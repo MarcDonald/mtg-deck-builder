@@ -1,0 +1,14 @@
+<h3>Login</h3>
+<form id="login">
+  <label for="username">Username
+    <input id="username" type="text" placeholder="Username" [formControl]="username" />
+  </label>
+
+  <label for="password">Password
+    <input id="password" type="password" [formControl]="password" />
+  </label>
+
+  <button (click)="login()">Login</button>
+
+  <p *ngIf="error">{{error}}</p>
+</form>

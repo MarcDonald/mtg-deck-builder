@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import Card from '../../../models/card';
+import Card from '../../../../models/card';
 
 @Component({
   selector: 'app-card-search-results',
