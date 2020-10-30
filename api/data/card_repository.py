@@ -3,14 +3,12 @@ import re
 from bson import ObjectId
 
 from data.database_interactor import db
-from utils.pagination_utils import get_page_start
 
 cards = db.mtgCards
 
 
-def search_by_name(card_name, page_num, page_size):
+def search_by_name(card_name, page_size, page_start):
     search_regex = re.compile("^.*{}.*$".format(card_name), re.IGNORECASE)
-    page_start = get_page_start(page_size, page_num)
     search_results = cards \
         .find({"name": search_regex}) \
         .skip(int(page_start)) \
@@ -23,5 +21,5 @@ def search_by_name_count(card_name):
     return cards.count({"name": search_regex})
 
 
-def get_card(card_id):
+def get_card_details(card_id):
     return cards.find_one({"_id": ObjectId(card_id)})

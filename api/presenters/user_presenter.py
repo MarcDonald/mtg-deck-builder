@@ -3,12 +3,16 @@ from utils.exceptions import NotFoundError
 
 
 def create_user(username, given_name, family_name):
-    user_id = user_repository.create_user(username, given_name, family_name)
-    return {
-        "username": username,
-        "givenName": given_name,
-        "familyName": family_name
-    }
+    check_username_result = user_repository.get_user_details(username)
+    if check_username_result is not None:
+        raise Exception("User with that username already exists")
+    else:
+        user_repository.create_user(username, given_name, family_name)
+        return {
+            "username": username,
+            "givenName": given_name,
+            "familyName": family_name
+        }
 
 
 def get_user_details(username):

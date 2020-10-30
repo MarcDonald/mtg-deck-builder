@@ -1,8 +1,10 @@
 from data import card_repository
+from utils.pagination_utils import get_page_start
 
 
 def search_by_name(card_name, page_num, page_size):
-    search_result = card_repository.search_by_name(card_name, page_num, page_size)
+    page_start = get_page_start(page_size, page_num)
+    search_result = card_repository.search_by_name(card_name, page_size, page_start)
     result_count = card_repository.search_by_name_count(card_name)
     returned_page = {}
     data = []
@@ -17,7 +19,7 @@ def search_by_name(card_name, page_num, page_size):
 
 
 def get_card_details(card_id):
-    card = card_repository.get_card(card_id)
+    card = card_repository.get_card_details(card_id)
     del card['_id']
     card['id'] = card_id
     return card

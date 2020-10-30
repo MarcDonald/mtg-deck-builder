@@ -6,10 +6,6 @@ users = db.users
 
 
 def create_user(username, given_name, family_name):
-    check_username_result = users.find({"username": username}).limit(1)
-    for user in check_username_result:
-        if user is not None:
-            raise Exception("User with that username already exists")
     return users.insert({
         "_id": ObjectId(),
         "username": username,
