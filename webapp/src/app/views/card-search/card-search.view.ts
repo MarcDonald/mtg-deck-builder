@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CardService } from '../../services/card.service';
+import Card from '../../models/card';
+import Page from '../../models/page';
 
 @Component({
   selector: 'app-card-search',
@@ -8,7 +10,7 @@ import { CardService } from '../../services/card.service';
 })
 export class CardSearchView implements OnInit {
   private searchTerm: string;
-  cards = [];
+  page: Page<Array<Card>> = null;
   currentPage: number = 1;
 
   constructor(private cardService: CardService) {}
@@ -27,13 +29,15 @@ export class CardSearchView implements OnInit {
     this.cardService
       .searchCards(this.searchTerm, this.currentPage)
       .subscribe((page) => {
-        this.cards = page.data;
+        this.page = page;
       });
   }
 
   goToNextPage() {
-    this.currentPage += 1;
-    this.makeApiRequest();
+    if (this.currentPage != this.page?.maxPage) {
+      this.currentPage += 1;
+      this.makeApiRequest();
+    }
   }
 
   goToPreviousPage() {

@@ -15,7 +15,7 @@ def get_user(card_name):
         page_num = get_page_number(request)
         page_size = get_page_size(request)
         search_result = card_presenter.search_by_name(card_name, page_num, page_size)
-        return make_paginated_response(search_result, page_num, page_size, 200)
+        return make_paginated_response(search_result['data'], page_num, page_size, search_result['count'], 200)
     except ValueError as err:
         return make_error_response("{}".format(err), 400)
 

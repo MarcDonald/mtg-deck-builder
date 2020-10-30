@@ -1,5 +1,8 @@
 <app-card-search-bar (search)="onSearch($event)"></app-card-search-bar>
-<button (click)="goToPreviousPage()">Previous</button>
-<button (click)="goToNextPage()">Next</button>
-<p>Page Number: {{currentPage}}</p>
-<app-card-search-results [cards]="cards"></app-card-search-results>
+<div *ngIf="page != null">
+  <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
+  <button (click)="goToNextPage()" [disabled]="currentPage === page?.maxPage">Next</button>
+  <p>Page: {{currentPage}}/{{page.maxPage}}</p>
+  <p>Results: {{page.count}}</p>
+  <app-card-search-results [cards]="page.data"></app-card-search-results>
+</div>

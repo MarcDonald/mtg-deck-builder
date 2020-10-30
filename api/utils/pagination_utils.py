@@ -1,3 +1,6 @@
+import math
+
+
 def get_page_number(request):
     try:
         if request.args.get('page_num'):
@@ -18,3 +21,7 @@ def get_page_size(request):
 
 def get_page_start(page_size, page_num):
     return int(page_size) * (int(page_num) - 1)
+
+
+def get_max_page(page_size, result_count):
+    return int(math.ceil(int(result_count) / int(page_size)))
