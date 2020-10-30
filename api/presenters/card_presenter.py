@@ -15,3 +15,9 @@ def search_by_name(card_name, page_num, page_size):
     returned_page['count'] = result_count
     return returned_page
 
+
+def get_card_details(card_id):
+    card = card_repository.get_card(card_id)
+    del card['_id']
+    card['id'] = card_id
+    return card

@@ -12,14 +12,13 @@ def create_user(username, given_name, family_name):
 
 
 def get_user_details(username):
-    db_result = user_repository.get_user_details(username)
-    for user in db_result:
-        if user is not None:
-            return {
-                "username": username,
-                "givenName": user['givenName'],
-                "familyName": user['familyName']
-            }
+    user = user_repository.get_user_details(username)
+    if user is not None:
+        return {
+            "username": username,
+            "givenName": user['givenName'],
+            "familyName": user['familyName']
+        }
     raise NotFoundError()
 
 

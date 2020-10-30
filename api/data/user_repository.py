@@ -19,7 +19,7 @@ def create_user(username, given_name, family_name):
 
 
 def get_user_details(username):
-    return users.find({"username": username}).limit(1)
+    return users.find_one({"username": username})
 
 
 def delete_user(username):

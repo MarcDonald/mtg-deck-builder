@@ -40,7 +40,11 @@ def search_cards_by_name(card_name):
 
 @app.route(prefix + '/cards/<string:card_id>', methods=['GET'])
 def get_card_details(card_id):
-    return make_response(jsonify({}), 200)
+    try:
+        card = card_presenter.get_card_details(card_id)
+        return make_response(jsonify(card), 200)
+    except NotFoundError:
+        return make_error_response("Card could not be found", 404)
 
 
 ###
