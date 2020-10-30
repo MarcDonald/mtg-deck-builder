@@ -11,6 +11,7 @@ prefix = '/api/v1'
 CORS(app)
 
 
+# TODO auth
 ####
 # AUTH ROUTES
 ###

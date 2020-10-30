@@ -52,11 +52,9 @@ def get_user_decks(username, page_num, page_size):
         deck_id = str(result['_id'])
         del result['_id']
         result['id'] = deck_id
-        for card in result['cards']:
-            card_id = str(card['_id'])
-            del card['_id']
-            card['id'] = card_id
-            card['card_deck_id'] = str(card['card_deck_id'])
+        card_count = len(result['cards'])
+        del result['cards']
+        result['cardCount'] = card_count
         data.append(result)
     returned_page['data'] = data
     returned_page['count'] = deck_count
