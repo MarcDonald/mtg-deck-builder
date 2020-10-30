@@ -1,0 +1,5 @@
+<label>
+  Search:
+  <input type="search" [formControl]="searchTerm" (search)="onSubmit()" (submit)="onSubmit()">
+</label>
+<button type="submit" (click)="onSubmit()">Search</button>

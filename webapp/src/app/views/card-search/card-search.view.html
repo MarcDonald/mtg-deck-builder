@@ -1,0 +1,5 @@
+<app-card-search-bar (search)="onSearch($event)"></app-card-search-bar>
+<button (click)="goToPreviousPage()">Previous</button>
+<button (click)="goToNextPage()">Next</button>
+<p>Page Number: {{currentPage}}</p>
+<app-card-search-results [cards]="cards"></app-card-search-results>

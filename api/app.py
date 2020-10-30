@@ -1,10 +1,12 @@
 from flask import Flask, request
+from flask_cors import CORS
 
 from presenters import card_presenter
 from utils.pagination_utils import get_page_size, get_page_number
 from utils.response_utils import make_error_response, make_paginated_response
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/api/v1/cards/search/<string:card_name>')

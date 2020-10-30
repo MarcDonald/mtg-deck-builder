@@ -15,7 +15,6 @@ def search_by_name(card_name, page_num, page_size):
         .limit(int(page_size))
     data_to_return = []
     for result in search_results:
-        print(result)
         result['_id'] = str(result['_id'])
         data_to_return.append(result)
     return data_to_return
