@@ -1,6 +1,25 @@
+@import "~src/variables";
+
 .deck-short-item {
-  background: lightgray;
+  background: $lighter-gray;
   border-radius: 0.5rem;
-  margin: 1em;
+  margin: 1em 0;
   cursor: pointer;
+}
+
+.deck-short-item:hover {
+  background-color: $darker-gray;
+}
+
+.deck-short-item-selected {
+  background-color: $darker-gray;
+}
+
+h4 {
+  padding: 0.25em;
+  font-size: 1.25rem;
+}
+
+p {
+  padding: 0 0 0.25em 0.25em;
 }

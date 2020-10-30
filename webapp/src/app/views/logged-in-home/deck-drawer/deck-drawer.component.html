@@ -1,11 +1,13 @@
-<h4>Decks</h4>
-<div *ngIf="page != null">
-  <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
-  <button (click)="goToNextPage()" [disabled]="currentPage === page?.maxPage">Next</button>
-  <p>Page: {{currentPage}}/{{page.maxPage}}</p>
-  <p>Results: {{page.count}}</p>
-  <div *ngFor="let deck of page.data">
-    <app-user-deck-short-item [deck]="deck" (click)="selectDeck(deck.id)"></app-user-deck-short-item>
+<div class="container">
+  <div class="title">
+    <h2>Your Decks</h2>
+    <button>Create</button>
+  </div>
+  <div *ngIf="page != null">
+    <app-page-controls [page]="page" (goToPage)="changePage($event)"></app-page-controls>
+    <div *ngFor="let deck of page.data">
+      <app-user-deck-short-item [deck]="deck" [selected]="selectedDeck === deck.id"
+                                (click)="selectDeck(deck.id)"></app-user-deck-short-item>
+    </div>
   </div>
 </div>
-

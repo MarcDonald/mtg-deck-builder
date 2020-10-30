@@ -1,6 +1,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  background-color: lightgray;
 }
 
 .deck-drawer {
@@ -8,7 +9,6 @@
 }
 
 .main-content {
-  background-color: lightgray;
   grid-column-start: 2;
   grid-column: span 3 / span 3;
 
@@ -16,4 +16,8 @@
 
 .card-drawer {
   background-color: white;
+}
+
+.no-deck-selected-message {
+  text-align: center;
 }

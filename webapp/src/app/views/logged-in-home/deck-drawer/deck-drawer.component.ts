@@ -15,33 +15,23 @@ export class DeckDrawerComponent implements OnInit {
     private deckService: DeckService,
     private authService: AuthService
   ) {}
+  selectedDeck: string | null = null;
   @Output() deckSelected: EventEmitter<string> = new EventEmitter();
 
   page: Page<DeckShort[]>;
-  currentPage: number = 1;
   error: null | string = null;
 
   ngOnInit(): void {
-    this.makeApiRequest();
+    this.makeApiRequest(1);
   }
 
-  goToNextPage() {
-    if (this.currentPage != this.page?.maxPage) {
-      this.currentPage += 1;
-      this.makeApiRequest();
-    }
+  changePage(pageToGoTo: number) {
+    this.makeApiRequest(pageToGoTo);
   }
 
-  goToPreviousPage() {
-    if (this.currentPage != 1) {
-      this.currentPage -= 1;
-      this.makeApiRequest();
-    }
-  }
-
-  makeApiRequest() {
+  makeApiRequest(page: number) {
     this.deckService
-      .getDecksForUser(this.authService.username, this.currentPage)
+      .getDecksForUser(this.authService.username, page)
       .pipe(catchError((err, caught) => (this.error = err.message)))
       .subscribe((page: Page<Array<DeckShort>>) => {
         if (page) {
@@ -51,6 +41,7 @@ export class DeckDrawerComponent implements OnInit {
   }
 
   selectDeck(deckId: string) {
-    this.deckSelected.emit(deckId);
+    this.selectedDeck = deckId;
+    this.deckSelected.emit(this.selectedDeck);
   }
 }

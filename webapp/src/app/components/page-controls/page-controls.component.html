@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="controls">
+    <button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
+    <p>Page: {{currentPage}}/{{page.maxPage}}</p>
+    <button (click)="goToNextPage()" [disabled]="currentPage === page?.maxPage">Next</button>
+  </div>
+  <p>Results: {{page.count}}</p>
+</div>

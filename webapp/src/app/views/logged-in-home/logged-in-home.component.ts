@@ -10,9 +10,9 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./logged-in-home.component.scss'],
 })
 export class LoggedInHomeComponent implements OnInit {
-  user: User;
-  private selectedDeckSubject = new BehaviorSubject<string>('');
+  private selectedDeckSubject = new BehaviorSubject<string | null>(null);
   selectedDeck = this.selectedDeckSubject.asObservable();
+  user: User;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -34,5 +34,12 @@ export class LoggedInHomeComponent implements OnInit {
 
   selectDeck(deckId: string) {
     this.selectedDeckSubject.next(deckId);
+  }
+
+  get showDeck(): boolean {
+    return (
+      this.selectedDeckSubject.value !== undefined &&
+      this.selectedDeckSubject.value !== null
+    );
   }
 }

@@ -1,15 +1,17 @@
 @import "variables";
 
-html, body {
+h1, h2, h3, h4, h5, h6, p, html, body {
   padding: 0;
   margin: 0;
+}
+
+html, body {
   font-family: 'Montserrat', sans-serif;
 }
 
 button {
   border: none;
   padding: 1em;
-  margin: 1em;
   border-radius: 0.5em;
   font-size: 1rem;
   cursor: pointer;

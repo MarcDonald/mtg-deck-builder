@@ -8,6 +8,7 @@ import DeckShort from '../../../../models/deck-short';
 })
 export class UserDeckShortItemComponent implements OnInit {
   @Input() deck: DeckShort;
+  @Input() selected: boolean = false;
 
   constructor() {}
 

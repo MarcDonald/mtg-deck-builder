@@ -17,6 +17,7 @@ import { UserDeckShortItemComponent } from './views/logged-in-home/deck-drawer/u
 import { HeaderComponent } from './components/header/header.component';
 import { DeckDrawerComponent } from './views/logged-in-home/deck-drawer/deck-drawer.component';
 import { DeckDisplayComponent } from './views/logged-in-home/deck-display/deck-display.component';
+import { PageControlsComponent } from './components/page-controls/page-controls.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { DeckDisplayComponent } from './views/logged-in-home/deck-display/deck-d
     HeaderComponent,
     DeckDrawerComponent,
     DeckDisplayComponent,
+    PageControlsComponent,
   ],
   imports: [
     BrowserModule,

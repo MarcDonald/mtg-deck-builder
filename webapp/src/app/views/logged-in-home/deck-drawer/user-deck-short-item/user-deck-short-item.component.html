@@ -1,3 +1,4 @@
-<div class="deck-short-item">
-  <p>{{deck.name}}</p>
+<div class="deck-short-item {{selected ? 'deck-short-item-selected' : ''}}">
+  <h4>{{deck.name}}</h4>
+  <p>Cards: {{deck.cardCount}}</p>
 </div>
