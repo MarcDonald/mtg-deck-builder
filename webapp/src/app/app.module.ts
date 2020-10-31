@@ -19,6 +19,7 @@ import { DeckCardDisplayComponent } from './views/decks/deck-card-display/deck-c
 import { PageControlsComponent } from './components/page-controls/page-controls.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 import { DeckCardItemComponent } from './views/decks/deck-card-display/deck-card-item/deck-card-item.component';
+import { ProfileComponent } from './views/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { DeckCardItemComponent } from './views/decks/deck-card-display/deck-card
     PageControlsComponent,
     PageNotFoundComponent,
     DeckCardItemComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

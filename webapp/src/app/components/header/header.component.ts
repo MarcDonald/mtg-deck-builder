@@ -9,18 +9,19 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   @Input() title: string = 'MTG Deck Builder';
-  showLogout: boolean = false;
+  @Input() showUserButtons: boolean = true;
+  isLoggedIn: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.showLogout = this.authService.isLoggedIn;
+    this.isLoggedIn = this.authService.isLoggedIn;
   }
 
-  async logout() {
+  logout() {
     this.authService.logout().subscribe((wasSuccess) => {
       if (wasSuccess) {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/').then();
       }
     });
   }

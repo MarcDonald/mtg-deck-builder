@@ -1,0 +1,24 @@
+<div class="container fullscreen">
+  <app-header title="Edit Profile" [showUserButtons]="false"></app-header>
+  <form id="profile" *ngIf="user">
+    <label for="username">
+      Username
+    </label>
+    <input id="username" type="text" placeholder="Username" [value]="user.username" [disabled]="true" />
+
+    <label for="given-name">
+      Given Name
+    </label>
+    <input id="given-name" type="text" placeholder="Given Name" [formControl]="givenName" />
+
+    <label for="family-name">
+      Family Name
+    </label>
+    <input id="family-name" type="text" placeholder="Family Name" [formControl]="familyName" />
+
+    <button (click)="save()">Save</button>
+
+    <p *ngIf="error">{{error}}</p>
+  </form>
+
+</div>

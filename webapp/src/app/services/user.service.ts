@@ -19,4 +19,20 @@ export class UserService {
   register(details: RegisterDetails): Observable<User> {
     return this.apiInteractor.post('users', details);
   }
+
+  getUserDetails(username: string): Observable<User> {
+    return this.apiInteractor.get(`users/${username}`);
+  }
+
+  updateUser(
+    username: string,
+    givenName: string,
+    familyName: string
+  ): Observable<User> {
+    return this.apiInteractor.put('users', {
+      username,
+      givenName,
+      familyName,
+    });
+  }
 }

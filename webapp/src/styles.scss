@@ -44,6 +44,10 @@ input {
   border-radius: 0.5em;
 }
 
+input:disabled {
+  cursor: not-allowed;
+}
+
 .fullscreen {
   min-height: 100vh;
   top: 0;

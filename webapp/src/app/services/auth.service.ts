@@ -50,6 +50,10 @@ export class AuthService {
     );
   }
 
+  updateUserDetails(user: User) {
+    this.userSubject.next(user);
+  }
+
   get username(): string {
     return localStorage.getItem('username');
   }

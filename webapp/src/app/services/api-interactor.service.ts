@@ -18,6 +18,10 @@ export class ApiInteractorService {
     return this.http.post(`${this.baseApiRoute}/${route}`, body);
   }
 
+  put(route: string, body: any | null = null): Observable<any> {
+    return this.http.put(`${this.baseApiRoute}/${route}`, body);
+  }
+
   delete(route: string): Observable<any> {
     return this.http.delete(`${this.baseApiRoute}/${route}`);
   }
