@@ -25,19 +25,21 @@ def update_deck_details(deck_id, deck_name):
 
 
 def get_deck_details(deck_id):
-    deck = deck_repository.get_deck_details(deck_id)
-    if deck is not None:
-        del deck['_id']
-        deck['id'] = str(deck_id)
-        for card in deck['cards']:
-            card_id = str(card['_id'])
-            del card['_id']
-            card['id'] = card_id
-            card['cardDeckId'] = str(card['deck_card_id'])
-            del card['deck_card_id']
-        return deck
-    raise NotFoundError()
-
+    if ObjectId.is_valid(deck_id):
+        deck = deck_repository.get_deck_details(deck_id)
+        if deck is not None:
+            del deck['_id']
+            deck['id'] = str(deck_id)
+            for card in deck['cards']:
+                card_id = str(card['_id'])
+                del card['_id']
+                card['id'] = card_id
+                card['cardDeckId'] = str(card['deck_card_id'])
+                del card['deck_card_id']
+            return deck
+        raise NotFoundError()
+    else:
+        raise InvalidIdError()
 
 def delete_deck(deck_id):
     return deck_repository.delete_deck(deck_id)

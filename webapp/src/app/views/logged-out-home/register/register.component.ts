@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
       .login(this.username.value, this.password.value)
       .subscribe((user) => {
         if (user) {
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/decks');
         }
       });
   }

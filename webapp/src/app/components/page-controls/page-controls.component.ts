@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import Page from '../../models/page';
 
 @Component({
@@ -13,13 +13,20 @@ export class PageControlsComponent implements OnInit {
   currentPage: number = 1;
 
   @Input() page: Page<any>;
+  @Input() reset: Observable<any> = of(null);
 
   @Output()
   goToPage: Observable<number> = this.goToPageSubject.asObservable();
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.reset.subscribe((value) => {
+      if (value) {
+        this.currentPage = 1;
+      }
+    });
+  }
 
   goToPreviousPage() {
     if (this.currentPage != 1) {

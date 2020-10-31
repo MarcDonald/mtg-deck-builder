@@ -24,7 +24,7 @@ export class LogoutGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (this.authService.isLoggedIn) {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/decks');
       return false;
     }
     return true;

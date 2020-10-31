@@ -2,7 +2,7 @@
   <h2>Add Cards</h2>
   <app-card-search-bar (search)="onSearch($event)"></app-card-search-bar>
   <div *ngIf="page != null">
-    <app-page-controls [page]="page" (goToPage)="goToPage($event)"></app-page-controls>
+    <app-page-controls [page]="page" [reset]="newSearch.asObservable()" (goToPage)="goToPage($event)"></app-page-controls>
     <div *ngFor="let card of page.data">
       <app-card-search-result-item [card]="card" (added)="addCard($event)"></app-card-search-result-item>
     </div>

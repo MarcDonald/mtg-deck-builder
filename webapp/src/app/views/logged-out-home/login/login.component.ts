@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       )
       .subscribe((user) => {
         if (user) {
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/decks');
         }
       });
   }

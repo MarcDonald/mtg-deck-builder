@@ -126,6 +126,8 @@ def get_specific_deck(deck_id):
     try:
         deck = deck_presenter.get_deck_details(deck_id)
         return make_response(jsonify(deck), 200)
+    except InvalidIdError:
+        return make_error_response("Invalid ID", 400)
     except NotFoundError:
         return make_error_response("Deck could not be found", 404)
 

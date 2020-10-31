@@ -9,14 +9,15 @@ import { CardSearchView } from './views/card-search/card-search.view';
 import { HttpClientModule } from '@angular/common/http';
 import { CardSearchResultItemComponent } from './views/card-search/card-search-result-item/card-search-result-item.component';
 import { LoggedOutHomeComponent } from './views/logged-out-home/logged-out-home.component';
-import { LoggedInHomeComponent } from './views/logged-in-home/logged-in-home.component';
+import { DecksComponent } from './views/decks/decks.component';
 import { LoginComponent } from './views/logged-out-home/login/login.component';
 import { RegisterComponent } from './views/logged-out-home/register/register.component';
-import { UserDeckShortItemComponent } from './views/logged-in-home/deck-drawer/user-deck-short-item/user-deck-short-item.component';
+import { UserDeckShortItemComponent } from './views/decks/deck-drawer/user-deck-short-item/user-deck-short-item.component';
 import { HeaderComponent } from './components/header/header.component';
-import { DeckDrawerComponent } from './views/logged-in-home/deck-drawer/deck-drawer.component';
-import { DeckDisplayComponent } from './views/logged-in-home/deck-display/deck-display.component';
+import { DeckDrawerComponent } from './views/decks/deck-drawer/deck-drawer.component';
+import { DeckDisplayComponent } from './views/decks/deck-display/deck-display.component';
 import { PageControlsComponent } from './components/page-controls/page-controls.component';
+import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { PageControlsComponent } from './components/page-controls/page-controls.
     CardSearchView,
     CardSearchResultItemComponent,
     LoggedOutHomeComponent,
-    LoggedInHomeComponent,
+    DecksComponent,
     LoginComponent,
     RegisterComponent,
     UserDeckShortItemComponent,
@@ -33,6 +34,7 @@ import { PageControlsComponent } from './components/page-controls/page-controls.
     DeckDrawerComponent,
     DeckDisplayComponent,
     PageControlsComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

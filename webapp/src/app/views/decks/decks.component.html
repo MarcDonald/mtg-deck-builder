@@ -4,7 +4,7 @@
   </div>
   <div class="main-content">
     <app-header></app-header>
-    <app-deck-display *ngIf="showDeck" [deckId]="selectedDeck"></app-deck-display>
+    <app-deck-display *ngIf="showDeck" [deckId]="selectedDeck" [shouldRefresh]="refresh"></app-deck-display>
     <div *ngIf="!showDeck" class="no-deck-selected-message">
       <h2>Click a deck on the left to start editing</h2>
       <h2><----------------------------------------</h2>

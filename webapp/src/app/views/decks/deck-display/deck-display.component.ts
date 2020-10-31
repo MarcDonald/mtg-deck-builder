@@ -11,25 +11,38 @@ import { Observable, of } from 'rxjs';
 })
 export class DeckDisplayComponent implements OnInit {
   @Input() deckId: Observable<string>;
+  @Input() shouldRefresh: Observable<boolean>;
   deck: DeckFull;
+  error: string | null = null;
 
   constructor(private deckService: DeckService) {}
 
   ngOnInit(): void {
     this.deckId.subscribe((id) => {
-      this.deckService
-        .getDeck(id)
-        .pipe(
-          catchError((err, caught) => {
-            console.error(err.message);
-            return of(null);
-          })
-        )
-        .subscribe((value) => {
-          if (value) {
-            this.deck = value;
-          }
-        });
+      this.makeApiRequest(id);
     });
+
+    this.shouldRefresh.subscribe((should) => {
+      if (should) {
+        this.makeApiRequest(this.deck.id);
+      }
+    });
+  }
+
+  makeApiRequest(deckId: string) {
+    this.deckService
+      .getDeck(deckId)
+      .pipe(
+        catchError((err, caught) => {
+          this.error = err.error.message;
+          return of(null);
+        })
+      )
+      .subscribe((value) => {
+        if (value) {
+          this.error = null;
+          this.deck = value;
+        }
+      });
   }
 }

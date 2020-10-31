@@ -11,6 +11,7 @@ import Page from '../../models/page';
 export class CardSearchView implements OnInit {
   private searchTerm: string;
   page: Page<Array<Card>> = null;
+  newSearch: EventEmitter<string> = new EventEmitter();
   @Output() cardAdded: EventEmitter<string> = new EventEmitter();
 
   constructor(private cardService: CardService) {}
@@ -20,6 +21,7 @@ export class CardSearchView implements OnInit {
   onSearch(searchTerm: string) {
     if (searchTerm && typeof searchTerm === 'string') {
       this.searchTerm = searchTerm;
+      this.newSearch.emit(searchTerm);
       this.makeApiRequest(1);
     }
   }

@@ -1,35 +1,32 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import User from '../../models/user';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import { DeckService } from '../../services/deck.service';
 import { catchError } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-logged-in-home',
-  templateUrl: './logged-in-home.component.html',
-  styleUrls: ['./logged-in-home.component.scss'],
+  selector: 'app-decks',
+  templateUrl: './decks.component.html',
+  styleUrls: ['./decks.component.scss'],
 })
-export class LoggedInHomeComponent implements OnInit {
+export class DecksComponent implements OnInit {
   private refreshEmitter = new EventEmitter<boolean>();
   refresh = this.refreshEmitter.asObservable();
   private selectedDeckSubject = new BehaviorSubject<string | null>(null);
   selectedDeck = this.selectedDeckSubject.asObservable();
-  user: User;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private deckService: DeckService
+    private deckService: DeckService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.authService.user.subscribe((user) => {
-      if (user) {
-        this.user = user;
-      }
-    });
+    this.route.paramMap.subscribe((params) =>
+      this.selectedDeckSubject.next(params.get('deckId'))
+    );
   }
 
   async logout() {
@@ -41,7 +38,7 @@ export class LoggedInHomeComponent implements OnInit {
   }
 
   selectDeck(deckId: string) {
-    this.selectedDeckSubject.next(deckId);
+    this.router.navigateByUrl(`/decks/${deckId}`).then();
   }
 
   addCard(cardId: string) {
@@ -55,8 +52,6 @@ export class LoggedInHomeComponent implements OnInit {
       )
       .subscribe((value) => {
         this.refreshEmitter.emit(true);
-        // Refreshes cards on deck display
-        this.selectDeck(this.selectedDeckSubject.value);
       });
   }
 
