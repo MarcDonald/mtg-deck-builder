@@ -1,6 +1,6 @@
-@import "~src/variables";
+@import "src/variables";
 
-.search-result {
+.container {
   background: $lighter-gray;
   border-radius: 0.5rem;
   margin: 1em 0;
@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-.search-result:hover {
+.container:hover {
   background-color: $darker-gray;
 }
 

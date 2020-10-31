@@ -15,6 +15,7 @@ export class DecksComponent implements OnInit {
   refresh = this.refreshEmitter.asObservable();
   private selectedDeckSubject = new BehaviorSubject<string | null>(null);
   selectedDeck = this.selectedDeckSubject.asObservable();
+  headerTitle: string = 'Hi';
 
   constructor(
     private authService: AuthService,
@@ -24,9 +25,18 @@ export class DecksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.constructHeaderTitle();
     this.route.paramMap.subscribe((params) =>
       this.selectedDeckSubject.next(params.get('deckId'))
     );
+  }
+
+  constructHeaderTitle() {
+    this.authService.user.subscribe((user) => {
+      if (user) {
+        this.headerTitle = `Hi, ${user.givenName} ${user.familyName}`;
+      }
+    });
   }
 
   async logout() {
@@ -47,6 +57,20 @@ export class DecksComponent implements OnInit {
       .pipe(
         catchError((err, caught) => {
           console.error(err);
+          return of(null);
+        })
+      )
+      .subscribe((value) => {
+        this.refreshEmitter.emit(true);
+      });
+  }
+
+  removeCardFromDeck(cardDeckId: string) {
+    this.deckService
+      .removeCardFromDeck(this.selectedDeckSubject.value, cardDeckId)
+      .pipe(
+        catchError((err, caught) => {
+          console.error(err.message);
           return of(null);
         })
       )

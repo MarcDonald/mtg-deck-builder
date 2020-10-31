@@ -1,9 +1,0 @@
-<h1 *ngIf="error">Error loading deck: {{error}}</h1>
-<div class="container" *ngIf="deck">
-  <p>{{deck.name}}</p>
-  <p *ngIf="deck.cards.length === 0">No cards in deck</p>
-  <div *ngFor="let card of deck.cards">
-    <!--TODO temporarily use search item-->
-    <app-card-search-result-item [card]="card"></app-card-search-result-item>
-  </div>
-</div>

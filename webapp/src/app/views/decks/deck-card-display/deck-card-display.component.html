@@ -1,0 +1,8 @@
+<h2 *ngIf="error">Error loading deck: {{error}}</h2>
+<div class="container" *ngIf="deck">
+  <h2>{{deck.name}}</h2>
+  <p *ngIf="deck.cards.length === 0">No cards in deck</p>
+  <div *ngFor="let card of deck.cards">
+    <app-deck-card-item [card]="card" (removeCard)="removeCardFromDeck($event)"></app-deck-card-item>
+  </div>
+</div>

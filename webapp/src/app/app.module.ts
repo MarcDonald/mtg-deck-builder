@@ -3,21 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CardSearchBarComponent } from './views/card-search/card-search-bar/card-search-bar.component';
+import { CardSearchBarComponent } from './views/decks/card-search/card-search-bar/card-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CardSearchView } from './views/card-search/card-search.view';
+import { CardSearchView } from './views/decks/card-search/card-search.view';
 import { HttpClientModule } from '@angular/common/http';
-import { CardSearchResultItemComponent } from './views/card-search/card-search-result-item/card-search-result-item.component';
-import { LoggedOutHomeComponent } from './views/logged-out-home/logged-out-home.component';
+import { CardSearchResultItemComponent } from './views/decks/card-search/card-search-result-item/card-search-result-item.component';
+import { LoggedOutComponent } from './views/logged-out/logged-out.component';
 import { DecksComponent } from './views/decks/decks.component';
-import { LoginComponent } from './views/logged-out-home/login/login.component';
-import { RegisterComponent } from './views/logged-out-home/register/register.component';
+import { LoginComponent } from './views/logged-out/login/login.component';
+import { RegisterComponent } from './views/logged-out/register/register.component';
 import { UserDeckShortItemComponent } from './views/decks/deck-drawer/user-deck-short-item/user-deck-short-item.component';
 import { HeaderComponent } from './components/header/header.component';
 import { DeckDrawerComponent } from './views/decks/deck-drawer/deck-drawer.component';
-import { DeckDisplayComponent } from './views/decks/deck-display/deck-display.component';
+import { DeckCardDisplayComponent } from './views/decks/deck-card-display/deck-card-display.component';
 import { PageControlsComponent } from './components/page-controls/page-controls.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
+import { DeckCardItemComponent } from './views/decks/deck-card-display/deck-card-item/deck-card-item.component';
 
 @NgModule({
   declarations: [
@@ -25,16 +26,17 @@ import { PageNotFoundComponent } from './views/page-not-found/page-not-found.com
     CardSearchBarComponent,
     CardSearchView,
     CardSearchResultItemComponent,
-    LoggedOutHomeComponent,
+    LoggedOutComponent,
     DecksComponent,
     LoginComponent,
     RegisterComponent,
     UserDeckShortItemComponent,
     HeaderComponent,
     DeckDrawerComponent,
-    DeckDisplayComponent,
+    DeckCardDisplayComponent,
     PageControlsComponent,
     PageNotFoundComponent,
+    DeckCardItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -34,4 +34,8 @@ export class DeckService {
   ): Observable<AddCardToDeckResponse> {
     return this.apiInteractor.post(`decks/${deckId}/${cardId}`);
   }
+
+  removeCardFromDeck(deckId: string, cardDeckId: string): Observable<any> {
+    return this.apiInteractor.delete(`decks/${deckId}/${cardDeckId}`);
+  }
 }

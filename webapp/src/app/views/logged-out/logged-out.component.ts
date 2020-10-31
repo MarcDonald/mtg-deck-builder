@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-logged-out-home',
-  templateUrl: './logged-out-home.component.html',
-  styleUrls: ['./logged-out-home.component.scss'],
+  selector: 'app-logged-out',
+  templateUrl: './logged-out.component.html',
+  styleUrls: ['./logged-out.component.scss'],
 })
-export class LoggedOutHomeComponent implements OnInit {
+export class LoggedOutComponent implements OnInit {
   selectedAuthTab: 'Login' | 'Register' = 'Login';
   constructor() {}
 

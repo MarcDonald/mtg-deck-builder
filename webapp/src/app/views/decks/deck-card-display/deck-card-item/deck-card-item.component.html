@@ -1,7 +1,7 @@
-<div class="search-result">
+<div class="container">
   <div class="title">
     <h4>{{card.name}}</h4>
-    <button (click)="addCard()">Add</button>
+    <button (click)="removeClick()">Remove</button>
   </div>
   <h5 *ngIf="card.variants.length > 0">Variants:</h5>
   <div *ngFor="let variant of card.variants">

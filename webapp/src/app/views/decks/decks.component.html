@@ -3,8 +3,8 @@
     <app-deck-drawer [shouldRefresh]="refresh" (deckSelected)="selectDeck($event)"></app-deck-drawer>
   </div>
   <div class="main-content">
-    <app-header></app-header>
-    <app-deck-display *ngIf="showDeck" [deckId]="selectedDeck" [shouldRefresh]="refresh"></app-deck-display>
+    <app-header [title]="headerTitle"></app-header>
+    <app-deck-card-display *ngIf="showDeck" [deckId]="selectedDeck" [shouldRefresh]="refresh" (removeCard)="removeCardFromDeck($event)"></app-deck-card-display>
     <div *ngIf="!showDeck" class="no-deck-selected-message">
       <h2>Click a deck on the left to start editing</h2>
       <h2><----------------------------------------</h2>

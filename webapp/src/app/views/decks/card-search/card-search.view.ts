@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { CardService } from '../../services/card.service';
-import Card from '../../models/card';
-import Page from '../../models/page';
+import { CardService } from '../../../services/card.service';
+import Card from '../../../models/card';
+import Page from '../../../models/page';
 
 @Component({
   selector: 'app-card-search',

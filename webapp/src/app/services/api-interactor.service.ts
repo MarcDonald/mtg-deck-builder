@@ -8,11 +8,17 @@ import { Observable } from 'rxjs';
 export class ApiInteractorService {
   constructor(private http: HttpClient) {}
 
+  baseApiRoute = 'http://localhost:5000/api/v1';
+
   get(route: string): Observable<any> {
-    return this.http.get(`http://localhost:5000/api/v1/${route}`);
+    return this.http.get(`${this.baseApiRoute}/${route}`);
   }
 
   post(route: string, body: any | null = null): Observable<any> {
-    return this.http.post(`http://localhost:5000/api/v1/${route}`, body);
+    return this.http.post(`${this.baseApiRoute}/${route}`, body);
+  }
+
+  delete(route: string): Observable<any> {
+    return this.http.delete(`${this.baseApiRoute}/${route}`);
   }
 }
