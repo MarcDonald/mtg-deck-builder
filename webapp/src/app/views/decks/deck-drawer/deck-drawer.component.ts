@@ -37,7 +37,7 @@ export class DeckDrawerComponent implements OnInit {
 
   makeApiRequest(page: number) {
     this.deckService
-      .getDecksForUser(this.authService.username, page)
+      .getUserDecks(page)
       .pipe(catchError((err, caught) => (this.error = err.message)))
       .subscribe((page: Page<Array<DeckShort>>) => {
         if (page) {

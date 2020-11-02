@@ -5,12 +5,13 @@ from data.database_interactor import db
 users = db.users
 
 
-def create_user(username, given_name, family_name):
+def create_user(username, given_name, family_name, password):
     return users.insert({
         "_id": ObjectId(),
         "username": username,
         "givenName": given_name,
-        "familyName": family_name
+        "familyName": family_name,
+        "password": password
     })
 
 

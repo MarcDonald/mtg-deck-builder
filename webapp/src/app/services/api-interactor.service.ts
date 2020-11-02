@@ -10,19 +10,64 @@ export class ApiInteractorService {
 
   baseApiRoute = 'http://localhost:5000/api/v1';
 
-  get(route: string): Observable<any> {
-    return this.http.get(`${this.baseApiRoute}/${route}`);
+  get accessToken(): string {
+    return localStorage.getItem('accessToken');
   }
 
-  post(route: string, body: any | null = null): Observable<any> {
-    return this.http.post(`${this.baseApiRoute}/${route}`, body);
+  get(route: string, withAuth: boolean = false): Observable<any> {
+    let options = {};
+    if (withAuth) {
+      options = {
+        headers: {
+          Authorization: this.accessToken,
+        },
+      };
+    }
+    return this.http.get(`${this.baseApiRoute}/${route}`, options);
   }
 
-  put(route: string, body: any | null = null): Observable<any> {
-    return this.http.put(`${this.baseApiRoute}/${route}`, body);
+  post(
+    route: string,
+    body: any | null = null,
+    withAuth: boolean = false
+  ): Observable<any> {
+    let options = {};
+    if (withAuth) {
+      options = {
+        headers: {
+          Authorization: this.accessToken,
+        },
+      };
+    }
+    return this.http.post(`${this.baseApiRoute}/${route}`, body, options);
   }
 
-  delete(route: string): Observable<any> {
-    return this.http.delete(`${this.baseApiRoute}/${route}`);
+  put(
+    route: string,
+    body: any | null = null,
+    withAuth: boolean = false
+  ): Observable<any> {
+    let options = {};
+    if (withAuth) {
+      options = {
+        headers: {
+          Authorization: this.accessToken,
+        },
+      };
+    }
+    return this.http.put(`${this.baseApiRoute}/${route}`, body, options);
+  }
+
+  delete(route: string, withAuth: boolean = false): Observable<any> {
+    let options = {};
+    if (withAuth) {
+      options = {
+        headers: {
+          Authorization: this.accessToken,
+        },
+      };
+    }
+
+    return this.http.delete(`${this.baseApiRoute}/${route}`, options);
   }
 }

@@ -1,45 +1,55 @@
 import { Injectable } from '@angular/core';
 import { ApiInteractorService } from './api-interactor.service';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, map, shareReplay, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, shareReplay, tap } from 'rxjs/operators';
 import User from '../models/user';
 
-// TODO proper auth
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private userSubject = new BehaviorSubject<User | null>(null);
-  user: Observable<User | null> = this.userSubject.asObservable();
   isLoggedIn: boolean = false;
 
   constructor(private apiInteractor: ApiInteractorService) {
-    const storedUser = localStorage.getItem('username');
-    if (storedUser) {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
       this.isLoggedIn = true;
-      this.login(storedUser, 'password').subscribe();
+      this.tokenLogin().subscribe();
     }
   }
 
-  login(username: string, password: string): Observable<User> {
-    return this.apiInteractor.post('login', { username, password }).pipe(
+  tokenLogin(): Observable<User> {
+    return this.apiInteractor.post('login/token', null, true).pipe(
       tap((user) => {
-        this.userSubject.next(user);
-        localStorage.setItem('username', username);
         this.isLoggedIn = true;
       }),
       shareReplay(),
       catchError((err, _) => {
         console.error(`Error trying to login - ${err.error.message}`);
+        this.isLoggedIn = false;
+        throw err;
+      })
+    );
+  }
+
+  login(username: string, password: string): Observable<User> {
+    return this.apiInteractor.post('login', { username, password }).pipe(
+      tap((response) => {
+        localStorage.setItem('accessToken', response.token);
+        this.isLoggedIn = true;
+      }),
+      shareReplay(),
+      catchError((err, _) => {
+        console.error(`Error trying to login - ${err.error.message}`);
+        this.isLoggedIn = false;
         throw err;
       })
     );
   }
 
   logout(): Observable<boolean> {
-    return this.apiInteractor.post('logout').pipe(
+    return this.apiInteractor.post('logout', null, true).pipe(
       tap((value) => {
-        this.userSubject.next(null);
         localStorage.clear();
         this.isLoggedIn = false;
       }),
@@ -48,13 +58,5 @@ export class AuthService {
         return of(false);
       })
     );
-  }
-
-  updateUserDetails(user: User) {
-    this.userSubject.next(user);
-  }
-
-  get username(): string {
-    return localStorage.getItem('username');
   }
 }

@@ -17,11 +17,15 @@ export class UserService {
   constructor(private apiInteractor: ApiInteractorService) {}
 
   register(details: RegisterDetails): Observable<User> {
-    return this.apiInteractor.post('users', details);
+    return this.apiInteractor.post('register', details);
+  }
+
+  getCurrentUserDetails(): Observable<User> {
+    return this.apiInteractor.get('user', true);
   }
 
   getUserDetails(username: string): Observable<User> {
-    return this.apiInteractor.get(`users/${username}`);
+    return this.apiInteractor.get(`users/${username}`, true);
   }
 
   updateUser(
@@ -29,10 +33,14 @@ export class UserService {
     givenName: string,
     familyName: string
   ): Observable<User> {
-    return this.apiInteractor.put('users', {
-      username,
-      givenName,
-      familyName,
-    });
+    return this.apiInteractor.put(
+      'users',
+      {
+        username,
+        givenName,
+        familyName,
+      },
+      true
+    );
   }
 }

@@ -15,31 +15,26 @@ interface AddCardToDeckResponse {
 export class DeckService {
   constructor(private apiInteractor: ApiInteractorService) {}
 
-  getDecksForUser(
-    username: string,
-    pageNumber: number = 1
-  ): Observable<Page<Array<DeckShort>>> {
-    return this.apiInteractor.get(
-      `decks/user/${username}?page_num=${pageNumber}`
-    );
+  getUserDecks(pageNumber: number = 1): Observable<Page<Array<DeckShort>>> {
+    return this.apiInteractor.get(`decks/user?page_num=${pageNumber}`, true);
   }
 
   getDeck(deckId: string): Observable<DeckFull> {
-    return this.apiInteractor.get(`decks/${deckId}`);
+    return this.apiInteractor.get(`decks/${deckId}`, true);
   }
 
   addCardToDeck(
     deckId: string,
     cardId: string
   ): Observable<AddCardToDeckResponse> {
-    return this.apiInteractor.post(`decks/${deckId}/${cardId}`);
+    return this.apiInteractor.post(`decks/${deckId}/${cardId}`, null, true);
   }
 
   removeCardFromDeck(deckId: string, cardDeckId: string): Observable<any> {
-    return this.apiInteractor.delete(`decks/${deckId}/${cardDeckId}`);
+    return this.apiInteractor.delete(`decks/${deckId}/${cardDeckId}`, true);
   }
 
   deleteDeck(deckId: string): Observable<any> {
-    return this.apiInteractor.delete(`decks/${deckId}`);
+    return this.apiInteractor.delete(`decks/${deckId}`, true);
   }
 }

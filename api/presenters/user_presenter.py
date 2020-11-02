@@ -1,22 +1,5 @@
 from data import user_repository
-from utils.exceptions import NotFoundError, AlreadyExistsError
-
-
-def login(username, password):
-    return get_user_details(username)
-
-
-def create_user(username, given_name, family_name):
-    check_username_result = user_repository.get_user_details(username)
-    if check_username_result is not None:
-        raise AlreadyExistsError("User with that username already exists")
-    else:
-        user_repository.create_user(username, given_name, family_name)
-        return {
-            "username": username,
-            "givenName": given_name,
-            "familyName": family_name
-        }
+from utils.exceptions import NotFoundError
 
 
 def get_user_details(username):

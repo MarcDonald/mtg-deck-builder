@@ -18,16 +18,11 @@ export class ProfileComponent implements OnInit {
   familyName = new FormControl('');
   givenName = new FormControl('');
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private router: Router
-  ) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    const username = this.authService.username;
     this.userService
-      .getUserDetails(username)
+      .getCurrentUserDetails()
       .pipe(catchError((err, caught) => of(null)))
       .subscribe((user) => (this.user = user));
   }
@@ -51,7 +46,6 @@ export class ProfileComponent implements OnInit {
       )
       .subscribe((value) => {
         if (value) {
-          this.authService.updateUserDetails(value);
           this.router.navigateByUrl('/decks').then();
         }
       });

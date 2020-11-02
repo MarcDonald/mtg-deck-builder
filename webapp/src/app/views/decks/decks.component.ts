@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import { DeckService } from '../../services/deck.service';
 import { catchError } from 'rxjs/operators';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-decks',
@@ -18,6 +19,7 @@ export class DecksComponent implements OnInit {
   headerTitle: string = 'Hi';
 
   constructor(
+    private userService: UserService,
     private authService: AuthService,
     private router: Router,
     private deckService: DeckService,
@@ -32,7 +34,7 @@ export class DecksComponent implements OnInit {
   }
 
   constructHeaderTitle() {
-    this.authService.user.subscribe((user) => {
+    this.userService.getCurrentUserDetails().subscribe((user) => {
       if (user) {
         this.headerTitle = `Hi, ${user.givenName} ${user.familyName}`;
       }
