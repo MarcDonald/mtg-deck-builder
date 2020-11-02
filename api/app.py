@@ -5,7 +5,7 @@ from flask_cors import CORS
 import config
 from presenters import card_presenter, user_presenter, deck_presenter, auth_presenter
 from utils.auth_guards import auth_required
-from utils.exceptions import NotFoundError, InvalidIdError, AlreadyExistsError
+from utils.exceptions import NotFoundError, InvalidIdError, AlreadyExistsError, InvalidAccessError
 from utils.pagination_utils import get_page_size, get_page_number
 from utils.response_utils import make_error_response, make_paginated_response
 
@@ -105,19 +105,7 @@ def get_current_user():
         return make_error_response("User could not be found", 404)
 
 
-@app.route(prefix + '/users/<string:username>', methods=['GET'])
-# TODO lock down
-@auth_required
-def get_user(username):
-    try:
-        user = user_presenter.get_user_details(username)
-        return make_response(user, 200)
-    except NotFoundError:
-        return make_error_response("User could not be found", 404)
-
-
 @app.route(prefix + '/user', methods=['PUT'])
-# TODO lock down
 @auth_required
 def update_user():
     token = request.headers['Authorization']
@@ -138,7 +126,6 @@ def update_user():
 
 
 @app.route(prefix + '/user', methods=['DELETE'])
-# TODO lock down
 @auth_required
 def delete_user():
     token = request.headers['Authorization']
@@ -151,7 +138,6 @@ def delete_user():
 # DECK ROUTES
 ###
 @app.route(prefix + '/decks/user', methods=['GET'])
-# TODO lock down
 @auth_required
 def get_users_decks():
     token = request.headers['Authorization']
@@ -165,14 +151,17 @@ def get_users_decks():
         return make_error_response("{}".format(err), 400)
 
 
-# TODO paginate cards in deck?
 @app.route(prefix + '/decks/<string:deck_id>', methods=['GET'])
-# TODO lock down
 @auth_required
 def get_specific_deck(deck_id):
+    token = request.headers['Authorization']
+    token_data = jwt.decode(token, config.JWT_SECRET)
+
     try:
-        deck = deck_presenter.get_deck_details(deck_id)
+        deck = deck_presenter.get_deck_details(deck_id, token_data['username'])
         return make_response(jsonify(deck), 200)
+    except InvalidAccessError:
+        return make_error_response("You are not the owner of that deck", 401)
     except InvalidIdError:
         return make_error_response("Invalid ID", 400)
     except NotFoundError:
@@ -196,16 +185,19 @@ def create_new_deck():
 
 
 @app.route(prefix + '/decks/<string:deck_id>', methods=['PUT'])
-# TODO lock down
 @auth_required
 def update_deck_details(deck_id):
-    login_info = request.get_json()
-    if "deckName" in login_info:
+    request_data = request.get_json()
+    token = request.headers['Authorization']
+    token_data = jwt.decode(token, config.JWT_SECRET)
+    if "deckName" in request_data:
         try:
-            result = deck_presenter.update_deck_details(deck_id, login_info['deckName'])
+            result = deck_presenter.update_deck_details(deck_id, request_data['deckName'], token_data['username'])
             return make_response(jsonify(result), 201)
         except NotFoundError as err:
             return make_error_response("Deck could not be found", 404)
+        except InvalidAccessError:
+            return make_error_response("You are not the owner of that deck", 401)
         except Exception as err:
             return make_error_response("{}".format(err), 500)
     else:
@@ -213,20 +205,29 @@ def update_deck_details(deck_id):
 
 
 @app.route(prefix + '/decks/<string:deck_id>', methods=['DELETE'])
-# TODO lock down
 @auth_required
 def delete_deck(deck_id):
-    deck_presenter.delete_deck(deck_id)
-    return make_response(jsonify({}), 200)
+    token = request.headers['Authorization']
+    token_data = jwt.decode(token, config.JWT_SECRET)
+    try:
+        deck_presenter.delete_deck(deck_id, token_data['username'])
+        return make_response(jsonify({}), 200)
+    except InvalidAccessError:
+        return make_error_response("You are not the owner of that deck", 401)
+    except Exception as err:
+        return make_error_response("{}".format(err), 500)
 
 
 @app.route(prefix + '/decks/<string:deck_id>/<string:card_id>', methods=['POST'])
-# TODO lock down
 @auth_required
 def add_card_to_deck(deck_id, card_id):
+    token = request.headers['Authorization']
+    token_data = jwt.decode(token, config.JWT_SECRET)
     try:
-        result = deck_presenter.add_card_to_deck(deck_id, card_id)
+        result = deck_presenter.add_card_to_deck(deck_id, card_id, token_data['username'])
         return make_response(jsonify(result), 200)
+    except InvalidAccessError:
+        return make_error_response("You are not the owner of that deck", 401)
     except NotFoundError as err:
         return make_error_response("{}".format(err), 404)
     except InvalidIdError as err:
@@ -234,11 +235,15 @@ def add_card_to_deck(deck_id, card_id):
 
 
 @app.route(prefix + '/decks/<string:deck_id>/<string:deck_card_id>', methods=['DELETE'])
-# TODO lock down
 @auth_required
 def delete_card_from_deck(deck_id, deck_card_id):
-    deck_presenter.delete_card_from_deck(deck_id, deck_card_id)
-    return make_response(jsonify({}), 200)
+    token = request.headers['Authorization']
+    token_data = jwt.decode(token, config.JWT_SECRET)
+    try:
+        deck_presenter.delete_card_from_deck(deck_id, deck_card_id, token_data['username'])
+        return make_response(jsonify({}), 200)
+    except InvalidAccessError:
+        return make_error_response("You are not the owner of that deck", 401)
 
 
 if __name__ == "__main__":

@@ -15,6 +15,10 @@ def create_deck(username, deck_name):
     })
 
 
+def get_owner_of_deck(deck_id):
+    return decks.find_one({"_id": ObjectId(deck_id)}, {"username": 1})
+
+
 def update_deck_details(deck_id, deck_name):
     decks.update_one({"_id": ObjectId(deck_id)}, {"$set": {
         "name": deck_name,

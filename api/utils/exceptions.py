@@ -8,3 +8,7 @@ class InvalidIdError(Exception):
 
 class AlreadyExistsError(Exception):
     pass
+
+
+class InvalidAccessError(Exception):
+    pass

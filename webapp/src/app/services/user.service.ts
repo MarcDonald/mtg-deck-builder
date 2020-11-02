@@ -24,10 +24,6 @@ export class UserService {
     return this.apiInteractor.get('user', true);
   }
 
-  getUserDetails(username: string): Observable<User> {
-    return this.apiInteractor.get(`users/${username}`, true);
-  }
-
   updateUser(givenName: string, familyName: string): Observable<User> {
     return this.apiInteractor.put(
       'user',
