@@ -7,7 +7,7 @@
     <app-page-controls [page]="page" (goToPage)="changePage($event)"></app-page-controls>
     <div *ngFor="let deck of page.data">
       <app-user-deck-short-item [deck]="deck" [selected]="selectedDeck === deck.id"
-                                (click)="selectDeck(deck.id)"></app-user-deck-short-item>
+                                (deckSelected)="selectDeck(deck.id)" (delete)="deleteDeck($event)"></app-user-deck-short-item>
     </div>
   </div>
 </div>

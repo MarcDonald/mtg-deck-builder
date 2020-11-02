@@ -1,6 +1,6 @@
 <div class="grid fullscreen">
   <div class="deck-drawer">
-    <app-deck-drawer [shouldRefresh]="refresh" (deckSelected)="selectDeck($event)"></app-deck-drawer>
+    <app-deck-drawer [shouldRefresh]="refresh" (deckSelected)="selectDeck($event)" (deckDeleted)="deckDeleted($event)"></app-deck-drawer>
   </div>
   <div class="main-content">
     <app-header [title]="headerTitle"></app-header>

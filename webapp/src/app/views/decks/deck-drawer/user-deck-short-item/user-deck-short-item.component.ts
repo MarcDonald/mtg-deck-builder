@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import DeckShort from '../../../../models/deck-short';
 
 @Component({
@@ -9,8 +9,18 @@ import DeckShort from '../../../../models/deck-short';
 export class UserDeckShortItemComponent implements OnInit {
   @Input() deck: DeckShort;
   @Input() selected: boolean = false;
+  @Output() delete: EventEmitter<string> = new EventEmitter();
+  @Output() deckSelected: EventEmitter<string> = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  deleteDeck() {
+    this.delete.emit(this.deck.id);
+  }
+
+  selectDeck() {
+    this.deckSelected.emit(this.deck.id);
+  }
 }

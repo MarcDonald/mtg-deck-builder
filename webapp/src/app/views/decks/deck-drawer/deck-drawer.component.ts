@@ -18,6 +18,7 @@ export class DeckDrawerComponent implements OnInit {
   ) {}
   selectedDeck: string | null = null;
   @Output() deckSelected: EventEmitter<string> = new EventEmitter();
+  @Output() deckDeleted: EventEmitter<string> = new EventEmitter();
   @Input() shouldRefresh: Observable<boolean>;
 
   page: Page<DeckShort[]>;
@@ -48,5 +49,12 @@ export class DeckDrawerComponent implements OnInit {
   selectDeck(deckId: string) {
     this.selectedDeck = deckId;
     this.deckSelected.emit(this.selectedDeck);
+  }
+
+  deleteDeck(deckId: string) {
+    this.deckService.deleteDeck(deckId).subscribe((value) => {
+      this.deckDeleted.emit(deckId);
+      this.makeApiRequest(this.page.pageNum);
+    });
   }
 }

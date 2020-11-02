@@ -1,4 +1,7 @@
-<div class="deck-short-item {{selected ? 'deck-short-item-selected' : ''}}">
-  <h4>{{deck.name}}</h4>
-  <p>Cards: {{deck.cardCount}}</p>
+<div class="container">
+  <div class="deck-short-item {{selected ? 'deck-short-item-selected' : ''}}" (click)="selectDeck()">
+    <h4>{{deck.name}}</h4>
+    <p>Cards: {{deck.cardCount}}</p>
+  </div>
+  <button (click)="deleteDeck()">Delete</button>
 </div>

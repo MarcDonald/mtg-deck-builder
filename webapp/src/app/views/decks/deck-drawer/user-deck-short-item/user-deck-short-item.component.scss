@@ -1,10 +1,16 @@
 @import "~src/variables";
 
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em 0;
+}
+
 .deck-short-item {
   background: $lighter-gray;
   border-radius: 0.5rem;
-  margin: 1em 0;
   cursor: pointer;
+  width: 75%;
 }
 
 .deck-short-item:hover {
@@ -22,4 +28,14 @@ h4 {
 
 p {
   padding: 0 0 0.25em 0.25em;
+}
+
+button {
+  padding: 0.5em;
+  background-color: $error;
+  width: 20%;
+}
+
+button:hover {
+  background-color: red;
 }

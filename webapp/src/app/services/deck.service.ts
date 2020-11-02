@@ -38,4 +38,8 @@ export class DeckService {
   removeCardFromDeck(deckId: string, cardDeckId: string): Observable<any> {
     return this.apiInteractor.delete(`decks/${deckId}/${cardDeckId}`);
   }
+
+  deleteDeck(deckId: string): Observable<any> {
+    return this.apiInteractor.delete(`decks/${deckId}`);
+  }
 }

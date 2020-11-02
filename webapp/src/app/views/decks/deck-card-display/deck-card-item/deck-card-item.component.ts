@@ -12,9 +12,7 @@ export class DeckCardItemComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.card);
-  }
+  ngOnInit(): void {}
 
   removeClick() {
     this.removeCard.emit(this.card.cardDeckId);

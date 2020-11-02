@@ -51,6 +51,12 @@ export class DecksComponent implements OnInit {
     this.router.navigateByUrl(`/decks/${deckId}`).then();
   }
 
+  deckDeleted(deckId: string) {
+    if (deckId === this.selectedDeckSubject.value) {
+      this.router.navigateByUrl(`/decks`).then();
+    }
+  }
+
   addCard(cardId: string) {
     this.deckService
       .addCardToDeck(this.selectedDeckSubject.value, cardId)
