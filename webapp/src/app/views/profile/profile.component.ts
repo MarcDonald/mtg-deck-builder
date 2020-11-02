@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import User from '../../models/user';
 import { UserService } from '../../services/user.service';
-import { AuthService } from '../../services/auth.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +18,11 @@ export class ProfileComponent implements OnInit {
   familyName = new FormControl('');
   givenName = new FormControl('');
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.userService
@@ -37,7 +41,7 @@ export class ProfileComponent implements OnInit {
       familyNameToUpdateTo = this.familyName.value;
     }
     this.userService
-      .updateUser(this.user.username, givenNameToUpdateTo, familyNameToUpdateTo)
+      .updateUser(givenNameToUpdateTo, familyNameToUpdateTo)
       .pipe(
         catchError((err, caught) => {
           this.error = err.message;
@@ -48,6 +52,22 @@ export class ProfileComponent implements OnInit {
         if (value) {
           this.router.navigateByUrl('/decks').then();
         }
+      });
+  }
+
+  delete() {
+    this.userService
+      .deleteUser()
+      .pipe(
+        catchError((err, caught) => {
+          this.error = err.message;
+          return of(null);
+        })
+      )
+      .subscribe((_) => {
+        this.authService.logout().subscribe((_) => {
+          this.router.navigateByUrl('/').then();
+        });
       });
   }
 }

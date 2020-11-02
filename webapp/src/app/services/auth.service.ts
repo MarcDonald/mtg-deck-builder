@@ -52,10 +52,6 @@ export class AuthService {
       tap((value) => {
         localStorage.clear();
         this.isLoggedIn = false;
-      }),
-      catchError((err, _) => {
-        console.error(`Error occurred trying to logout - ${err.error.message}`);
-        return of(false);
       })
     );
   }

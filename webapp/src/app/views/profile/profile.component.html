@@ -17,6 +17,7 @@
     <input id="family-name" type="text" placeholder="Family Name" [formControl]="familyName" />
 
     <button (click)="save()">Save</button>
+    <button (click)="delete()">Delete</button>
 
     <p *ngIf="error">{{error}}</p>
   </form>

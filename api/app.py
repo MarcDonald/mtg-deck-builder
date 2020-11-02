@@ -116,14 +116,17 @@ def get_user(username):
         return make_error_response("User could not be found", 404)
 
 
-@app.route(prefix + '/users', methods=['PUT'])
+@app.route(prefix + '/user', methods=['PUT'])
 # TODO lock down
 @auth_required
 def update_user():
+    token = request.headers['Authorization']
+    token_data = jwt.decode(token, config.JWT_SECRET)
+
     login_info = request.get_json()
-    if "username" in login_info and "givenName" in login_info and "familyName" in login_info:
+    if "givenName" in login_info and "familyName" in login_info:
         try:
-            result = user_presenter.update_user(login_info['username'],
+            result = user_presenter.update_user(token_data['username'],
                                                 login_info['givenName'],
                                                 login_info['familyName']
                                                 )
@@ -131,10 +134,10 @@ def update_user():
         except Exception as err:
             return make_error_response("{}".format(err), 500)
     else:
-        return make_error_response("Username, givenName, and familyName must be in body", 400)
+        return make_error_response("givenName, and familyName must be in body", 400)
 
 
-@app.route(prefix + '/users', methods=['DELETE'])
+@app.route(prefix + '/user', methods=['DELETE'])
 # TODO lock down
 @auth_required
 def delete_user():

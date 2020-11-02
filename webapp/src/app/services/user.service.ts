@@ -28,19 +28,18 @@ export class UserService {
     return this.apiInteractor.get(`users/${username}`, true);
   }
 
-  updateUser(
-    username: string,
-    givenName: string,
-    familyName: string
-  ): Observable<User> {
+  updateUser(givenName: string, familyName: string): Observable<User> {
     return this.apiInteractor.put(
-      'users',
+      'user',
       {
-        username,
         givenName,
         familyName,
       },
       true
     );
+  }
+
+  deleteUser(): Observable<any> {
+    return this.apiInteractor.delete('user', true);
   }
 }
