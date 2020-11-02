@@ -20,6 +20,7 @@ import { PageControlsComponent } from './components/page-controls/page-controls.
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 import { DeckCardItemComponent } from './views/decks/deck-card-display/deck-card-item/deck-card-item.component';
 import { ProfileComponent } from './views/profile/profile.component';
+import { CreateDeckComponent } from './views/decks/deck-drawer/create-deck/create-deck.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ProfileComponent } from './views/profile/profile.component';
     PageNotFoundComponent,
     DeckCardItemComponent,
     ProfileComponent,
+    CreateDeckComponent,
   ],
   imports: [
     BrowserModule,

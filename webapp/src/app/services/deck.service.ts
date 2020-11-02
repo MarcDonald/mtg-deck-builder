@@ -37,4 +37,14 @@ export class DeckService {
   deleteDeck(deckId: string): Observable<any> {
     return this.apiInteractor.delete(`decks/${deckId}`, true);
   }
+
+  createDeck(deckName: string): Observable<string> {
+    return this.apiInteractor.post(
+      'decks',
+      {
+        deckName,
+      },
+      true
+    );
+  }
 }

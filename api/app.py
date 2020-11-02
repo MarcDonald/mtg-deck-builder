@@ -182,16 +182,17 @@ def get_specific_deck(deck_id):
 @app.route(prefix + '/decks', methods=['POST'])
 @auth_required
 def create_new_deck():
-    login_info = request.get_json()
-    # TODO get username from token
-    if "username" in login_info and "deckName" in login_info:
+    request_data = request.get_json()
+    token = request.headers['Authorization']
+    token_data = jwt.decode(token, config.JWT_SECRET)
+    if "deckName" in request_data:
         try:
-            result = deck_presenter.create_deck(login_info['username'], login_info['deckName'])
+            result = deck_presenter.create_deck(token_data['username'], request_data['deckName'])
             return make_response(jsonify(result), 201)
         except Exception as err:
             return make_error_response("{}".format(err), 500)
     else:
-        return make_error_response("Username and deckName must be in body", 400)
+        return make_error_response("deckName must be in body", 400)
 
 
 @app.route(prefix + '/decks/<string:deck_id>', methods=['PUT'])

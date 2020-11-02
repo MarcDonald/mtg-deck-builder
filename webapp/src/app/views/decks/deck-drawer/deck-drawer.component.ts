@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DeckService } from '../../../services/deck.service';
-import { AuthService } from '../../../services/auth.service';
 import Page from '../../../models/page';
 import DeckShort from '../../../models/deck-short';
 import { catchError } from 'rxjs/operators';
@@ -12,11 +11,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./deck-drawer.component.scss'],
 })
 export class DeckDrawerComponent implements OnInit {
-  constructor(
-    private deckService: DeckService,
-    private authService: AuthService
-  ) {}
+  constructor(private deckService: DeckService) {}
+
   selectedDeck: string | null = null;
+  displayCreateDeck: boolean = false;
   @Output() deckSelected: EventEmitter<string> = new EventEmitter();
   @Output() deckDeleted: EventEmitter<string> = new EventEmitter();
   @Input() shouldRefresh: Observable<boolean>;
@@ -56,5 +54,13 @@ export class DeckDrawerComponent implements OnInit {
       this.deckDeleted.emit(deckId);
       this.makeApiRequest(this.page.pageNum);
     });
+  }
+
+  deckCreated(deckId: string) {
+    this.makeApiRequest(this.page.pageNum);
+  }
+
+  showHideCreateDeckClicked() {
+    this.displayCreateDeck = !this.displayCreateDeck;
   }
 }

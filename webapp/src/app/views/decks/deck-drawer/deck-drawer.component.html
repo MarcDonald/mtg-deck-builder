@@ -1,8 +1,9 @@
 <div class="container">
   <div class="title">
     <h2>Your Decks</h2>
-    <button>Create</button>
+    <button (click)="showHideCreateDeckClicked()">{{displayCreateDeck ? '-' : '+'}}</button>
   </div>
+  <app-create-deck *ngIf="displayCreateDeck" (deckCreated)="deckCreated($event)"></app-create-deck>
   <div *ngIf="page != null">
     <app-page-controls [page]="page" (goToPage)="changePage($event)"></app-page-controls>
     <div *ngFor="let deck of page.data">

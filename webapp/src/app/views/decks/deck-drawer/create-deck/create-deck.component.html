@@ -1,0 +1,7 @@
+<form>
+  <label>
+    <input placeholder="Deck Name" [formControl]="deckName">
+  </label>
+  <button (click)="createDeck()">Create</button>
+  <p *ngIf="error">{{error}}</p>
+</form>
