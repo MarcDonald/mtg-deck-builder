@@ -12,3 +12,7 @@ class AlreadyExistsError(Exception):
 
 class InvalidAccessError(Exception):
     pass
+
+
+class InvalidDataError(Exception):
+    pass

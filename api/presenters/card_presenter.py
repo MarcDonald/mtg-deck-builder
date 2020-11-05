@@ -1,4 +1,6 @@
 from data import card_repository
+from utils.exceptions import NotFoundError
+from utils.general_utils import validate_id
 from utils.pagination_utils import get_page_start
 
 
@@ -19,7 +21,11 @@ def search_by_name(card_name, page_num, page_size):
 
 
 def get_card_details(card_id):
+    validate_id(card_id, "Card ID")
     card = card_repository.get_card_details(card_id)
-    del card['_id']
-    card['id'] = card_id
-    return card
+    if card:
+        del card['_id']
+        card['id'] = card_id
+        return card
+    else:
+        raise NotFoundError()

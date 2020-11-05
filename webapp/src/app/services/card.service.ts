@@ -15,7 +15,7 @@ export class CardService {
     pageNumber: number = 1
   ): Observable<Page<Array<Card>>> =>
     this.apiInteractor.get(
-      `cards/search/${searchTerm}?page_num=${pageNumber}`,
+      `cards/search?query=${searchTerm}&page_num=${pageNumber}`,
       true
     );
 }
