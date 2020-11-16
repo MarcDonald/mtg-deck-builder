@@ -16,7 +16,7 @@ export class DeckService {
   constructor(private apiInteractor: ApiInteractorService) {}
 
   getUserDecks(pageNumber: number = 1): Observable<Page<Array<DeckShort>>> {
-    return this.apiInteractor.get(`decks/user?page_num=${pageNumber}`, true);
+    return this.apiInteractor.get(`decks?page_num=${pageNumber}`, true);
   }
 
   getDeck(deckId: string): Observable<DeckFull> {
