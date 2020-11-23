@@ -3,6 +3,7 @@ import { ApiInteractorService } from './api-interactor.service';
 import { Observable, of } from 'rxjs';
 import { catchError, shareReplay, tap } from 'rxjs/operators';
 import User from '../models/user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +11,18 @@ import User from '../models/user';
 export class AuthService {
   isLoggedIn: boolean = false;
 
-  constructor(private apiInteractor: ApiInteractorService) {
+  constructor(private apiInteractor: ApiInteractorService, router: Router) {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
       this.isLoggedIn = true;
-      this.tokenLogin().subscribe();
+      this.tokenLogin()
+        .pipe(
+          catchError((err, _) => {
+            router.navigateByUrl('/').then();
+            throw err;
+          })
+        )
+        .subscribe();
     }
   }
 
@@ -27,6 +35,7 @@ export class AuthService {
       catchError((err, _) => {
         console.error(`Error trying to login - ${err.error.message}`);
         this.isLoggedIn = false;
+        localStorage.clear();
         throw err;
       })
     );
