@@ -4,12 +4,14 @@
     <div class="whitespace">
     </div>
     <div class="authentication">
-      <div class="tabs">
-        <button class="tab-button tab-button-left {{selectedAuthTab === 'Login' ? 'tab-button-selected' : 'tab-button-inactive'}}" (click)="switchTab('Login')">Login</button>
-        <button class="tab-button tab-button-right {{selectedAuthTab === 'Register' ? 'tab-button-selected' : 'tab-button-inactive'}}" (click)="switchTab('Register')">Register</button>
-      </div>
-      <app-login *ngIf="selectedAuthTab === 'Login'"></app-login>
-      <app-register *ngIf="selectedAuthTab === 'Register'"></app-register>
+      <mat-tab-group mat-align-tabs="center" animationDuration="250ms">
+        <mat-tab label="Login">
+          <app-login></app-login>
+        </mat-tab>
+        <mat-tab label="Register">
+          <app-register></app-register>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>

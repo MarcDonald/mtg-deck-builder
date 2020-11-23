@@ -1,11 +1,13 @@
 <header>
   <div class="left">
-    <button *ngIf="isLoggedIn && showUserButtons" [routerLink]="'/profile'">Edit Profile</button>
+    <button mat-raised-button color=primary *ngIf="isLoggedIn && showUserButtons" [routerLink]="'/profile'">
+      Edit Profile
+    </button>
   </div>
   <div class="title">
     <h1>{{title}}</h1>
   </div>
   <div class="right">
-    <button *ngIf="isLoggedIn && showUserButtons" (click)="logout()">Logout</button>
+    <button mat-raised-button color=warn *ngIf="isLoggedIn && showUserButtons" (click)="logout()">Logout</button>
   </div>
 </header>

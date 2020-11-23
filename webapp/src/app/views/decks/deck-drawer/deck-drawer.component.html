@@ -1,7 +1,7 @@
 <div class="container">
   <div class="title">
     <h2>Your Decks</h2>
-    <button (click)="showHideCreateDeckClicked()">{{displayCreateDeck ? '-' : '+'}}</button>
+    <button mat-button matTooltip="Create New Deck" class="add-deck-button"  (click)="showHideCreateDeckClicked()">{{displayCreateDeck ? '-' : '+'}}</button>
   </div>
   <app-create-deck *ngIf="displayCreateDeck" (deckCreated)="deckCreated($event)"></app-create-deck>
   <div *ngIf="page != null">

@@ -21,6 +21,14 @@ import { PageNotFoundComponent } from './views/page-not-found/page-not-found.com
 import { DeckCardItemComponent } from './views/decks/deck-card-display/deck-card-item/deck-card-item.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { CreateDeckComponent } from './views/decks/deck-drawer/create-deck/create-deck.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -48,6 +56,14 @@ import { CreateDeckComponent } from './views/decks/deck-drawer/create-deck/creat
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

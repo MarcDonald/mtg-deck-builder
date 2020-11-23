@@ -1,10 +1,12 @@
-<div class="container">
+<mat-card class="container">
   <div class="title">
-    <h4>{{card.name}}</h4>
-    <button (click)="removeClick()">Remove</button>
+    <mat-card-title>{{card.name}}</mat-card-title>
+    <button mat-icon-button matTooltip="Remove card from deck" label="Remove card from deck" (click)="removeClick()" style="padding: 0 !important;">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
-  <h5 *ngIf="card.variants.length > 0">Variants:</h5>
+  <mat-card-subtitle *ngIf="card.variants.length > 0">Variants:</mat-card-subtitle>
   <div *ngFor="let variant of card.variants">
-    <p>{{variant.text}}</p>
+    <mat-card-content>{{variant.text}}</mat-card-content>
   </div>
-</div>
+</mat-card>

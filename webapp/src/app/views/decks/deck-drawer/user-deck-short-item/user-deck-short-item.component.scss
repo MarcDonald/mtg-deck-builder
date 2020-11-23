@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   margin: 1em 0;
+  align-items: center;
 }
 
 .deck-short-item {
@@ -11,6 +12,7 @@
   border-radius: 0.5rem;
   cursor: pointer;
   width: 75%;
+  padding: 0.5em;
 }
 
 .deck-short-item:hover {
@@ -28,14 +30,4 @@ h4 {
 
 p {
   padding: 0 0 0.25em 0.25em;
-}
-
-button {
-  padding: 0.5em;
-  background-color: $error;
-  width: 20%;
-}
-
-button:hover {
-  background-color: red;
 }

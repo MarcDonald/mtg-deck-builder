@@ -1,3 +1,21 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$webapp-primary: mat-palette($mat-orange);
+$webapp-accent: mat-palette($mat-gray, A200, A100, A400);
+$webapp-warn: mat-palette($mat-red);
+
+$webapp-theme: mat-light-theme((
+  color: (
+    primary: $webapp-primary,
+    accent: $webapp-accent,
+    warn: $webapp-warn,
+  )
+));
+
+@include angular-material-theme($webapp-theme);
+
 @import "variables";
 
 h1, h2, h3, h4, h5, h6, p, html, body {
@@ -6,46 +24,12 @@ h1, h2, h3, h4, h5, h6, p, html, body {
 }
 
 html, body {
+  height: 100%;
+}
+
+body {
   font-family: 'Montserrat', sans-serif;
-}
-
-button {
-  border: none;
-  padding: 1em;
-  border-radius: 0.5em;
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: center;
-  outline: none;
-  background-color: $brand;
-  color: white;
-}
-
-button:hover {
-  background-color: $brand-light;
-}
-
-button:focus-visible {
-  background-color: $brand-light;
-}
-
-button:disabled {
-  background-color: $lighter-gray;
-  color: $disabled-button;
-  cursor: not-allowed;
-}
-
-input {
-  outline: none;
-  padding: 0.75em;
-  box-sizing: border-box;
-  background-color: $lighter-gray;
-  border: none;
-  border-radius: 0.5em;
-}
-
-input:disabled {
-  cursor: not-allowed;
+  margin: 0;
 }
 
 .fullscreen {

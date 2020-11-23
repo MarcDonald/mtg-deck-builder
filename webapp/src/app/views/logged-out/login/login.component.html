@@ -1,15 +1,21 @@
-<form id="login">
-  <label for="username">
-    Username
-  </label>
-  <input id="username" type="text" placeholder="Username" [formControl]="username" />
+<form id="login" [formGroup]="loginForm">
+  <mat-form-field appearance="fill">
+    <mat-label>
+      Username
+    </mat-label>
+    <label for="username"></label>
+    <input matInput id="username" placeholder="Username" [formControl]="username">
+  </mat-form-field>
 
-  <label id="password-label" for="password">
-    Password
-  </label>
-  <input id="password" type="password" placeholder="Password" [formControl]="password" />
+  <mat-form-field appearance="fill">
+    <mat-label>
+      Password
+    </mat-label>
+    <label for="password"></label>
+    <input matInput id="password" type="password" placeholder="Password" [formControl]="password">
+  </mat-form-field>
 
-  <button (click)="login()">Login</button>
+  <mat-error *ngIf="error">{{error}}</mat-error>
 
-  <p *ngIf="error">{{error}}</p>
+  <button mat-raised-button color="primary" (click)="login()">Login</button>
 </form>

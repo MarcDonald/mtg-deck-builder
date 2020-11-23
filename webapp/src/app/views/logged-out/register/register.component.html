@@ -1,20 +1,45 @@
 <form id="register">
-  <label for="username" id="username-label">Username</label>
-  <input id="username" type="text" placeholder="Username" [formControl]="username" />
+  <mat-form-field appearance="fill">
+    <mat-label>
+      Username
+    </mat-label>
+    <label for="username"></label>
+    <input matInput id="username" placeholder="Username" [formControl]="username">
+  </mat-form-field>
 
-  <label for="password">Password</label>
-  <input id="password" type="password" placeholder="Password" [formControl]="password" />
+  <mat-form-field appearance="fill">
+    <mat-label>
+      Password
+    </mat-label>
+    <label for="password"></label>
+    <input matInput id="password" type="password" placeholder="Password" [formControl]="password">
+  </mat-form-field>
 
-  <label for="confirm-password">Confirm Password</label>
-  <input id="confirm-password" type="password" placeholder="Confirm Password" [formControl]="confirmPassword" />
+  <mat-form-field appearance="fill">
+    <mat-label>
+      Confirm Password
+    </mat-label>
+    <label for="confirmPassword"></label>
+    <input matInput id="confirmPassword" type="password" placeholder="Confirm Password" [formControl]="confirmPassword">
+  </mat-form-field>
 
-  <label for="givenName">Given Name</label>
-  <input id="givenName" type="text" placeholder="Given Name" [formControl]="givenName" />
+  <mat-form-field appearance="fill">
+    <mat-label>
+      Given Name
+    </mat-label>
+    <label for="givenName"></label>
+    <input matInput id="givenName" placeholder="Given Name" [formControl]="givenName">
+  </mat-form-field>
 
-  <label for="familyName">Family Name</label>
-  <input id="familyName" type="text" placeholder="Family Name" [formControl]="familyName" />
+  <mat-form-field appearance="fill">
+    <mat-label>
+      Family Name
+    </mat-label>
+    <label for="familyName"></label>
+    <input matInput id="familyName" placeholder="Family Name" [formControl]="familyName">
+  </mat-form-field>
 
-  <button (click)="register()">Register</button>
+  <mat-error *ngIf="error">{{error}}</mat-error>
 
-  <p *ngIf="error">{{error}}</p>
+  <button mat-raised-button color="primary" (click)="register()">Register</button>
 </form>

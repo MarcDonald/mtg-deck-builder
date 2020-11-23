@@ -1,13 +1,24 @@
+@import "src/variables";
+
+mat-card {
+  margin: 0.5em 0;
+  background-color: $background-gray;
+}
+
+mat-card-title {
+  text-align: center;
+}
+
 form {
   margin: 1em 0;
 }
 
-form input {
+
+mat-form-field {
   width: 100%
 }
 
 form button {
   width: 100%;
   padding: 0.5em;
-  margin: 0.5em 0;
 }

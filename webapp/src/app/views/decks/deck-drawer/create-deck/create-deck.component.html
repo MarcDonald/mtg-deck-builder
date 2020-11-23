@@ -1,7 +1,15 @@
-<form>
-  <label>
-    <input placeholder="Deck Name" [formControl]="deckName">
-  </label>
-  <button (click)="createDeck()">Create</button>
-  <p *ngIf="error">{{error}}</p>
-</form>
+<mat-card>
+  <mat-card-title>Create New Deck</mat-card-title>
+  <form>
+    <mat-form-field appearance="fill">
+      <mat-label>
+        Deck Name
+      </mat-label>
+      <label for="deckName"></label>
+      <input matInput id="deckName" placeholder="Deck Name" [formControl]="deckName">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="createDeck()">Create</button>
+    <p *ngIf="error">{{error}}</p>
+  </form>
+</mat-card>

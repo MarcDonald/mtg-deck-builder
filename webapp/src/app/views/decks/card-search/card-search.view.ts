@@ -16,7 +16,10 @@ export class CardSearchView implements OnInit {
 
   constructor(private cardService: CardService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // TODO remove
+    this.onSearch('test');
+  }
 
   onSearch(searchTerm: string) {
     if (searchTerm && typeof searchTerm === 'string') {

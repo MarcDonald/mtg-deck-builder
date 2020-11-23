@@ -1,4 +1,13 @@
 <div class="container">
-  <input type="search" placeholder="Search" [formControl]="searchTerm" (search)="onSubmit()" (submit)="onSubmit()">
-  <button type="submit" (click)="onSubmit()">Search</button>
+  <mat-form-field appearance="standard">
+    <mat-label>
+      Search
+    </mat-label>
+    <label for="searchTerm"></label>
+    <input matInput id="searchTerm" placeholder="Search" type="search" [formControl]="searchTerm"
+           (search)="onSubmit()" (submit)="onSubmit()">
+    <button mat-icon-button matSuffix (click)="onSubmit()" >
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
 </div>

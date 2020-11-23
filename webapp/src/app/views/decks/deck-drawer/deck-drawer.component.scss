@@ -6,12 +6,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1em;
 }
 
-.title button {
-  width: 15%
-}
-
-h2 {
-  text-align: center;
+.add-deck-button {
+  font-size: 24pt;
 }
