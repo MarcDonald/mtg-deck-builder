@@ -11,6 +11,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AreYouSureDialog } from '../dialogs/are-you-sure-dialog/are-you-sure.dialog';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +27,8 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -75,18 +78,27 @@ export class ProfileComponent implements OnInit {
   }
 
   delete() {
-    this.userService
-      .deleteUser()
-      .pipe(
-        catchError((err, caught) => {
-          console.error(err);
-          return of(null);
-        })
-      )
-      .subscribe((_) => {
-        this.authService.logout().subscribe((_) => {
-          this.router.navigateByUrl('/').then();
-        });
-      });
+    const dialogRef = this.dialog.open(AreYouSureDialog, {
+      data: {
+        content: 'Are you sure you want to delete your account?',
+      },
+    });
+    dialogRef.afterClosed().subscribe((shouldDelete) => {
+      if (shouldDelete) {
+        this.userService
+          .deleteUser()
+          .pipe(
+            catchError((err, caught) => {
+              console.error(err);
+              return of(null);
+            })
+          )
+          .subscribe((_) => {
+            this.authService.logout().subscribe((_) => {
+              this.router.navigateByUrl('/').then();
+            });
+          });
+      }
+    });
   }
 }

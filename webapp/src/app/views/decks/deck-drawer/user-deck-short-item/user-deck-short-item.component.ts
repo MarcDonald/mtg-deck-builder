@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import DeckShort from '../../../../models/deck-short';
+import { AreYouSureDialog } from '../../../dialogs/are-you-sure-dialog/are-you-sure.dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-deck-short-item',
@@ -12,12 +14,21 @@ export class UserDeckShortItemComponent implements OnInit {
   @Output() delete: EventEmitter<string> = new EventEmitter();
   @Output() deckSelected: EventEmitter<string> = new EventEmitter();
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
   deleteDeck() {
-    this.delete.emit(this.deck.id);
+    const dialogRef = this.dialog.open(AreYouSureDialog, {
+      data: {
+        content: `Are you sure you want to delete '${this.deck.name}'?`,
+      },
+    });
+    dialogRef.afterClosed().subscribe((shouldDelete) => {
+      if (shouldDelete) {
+        this.delete.emit(this.deck.id);
+      }
+    });
   }
 
   selectDeck() {

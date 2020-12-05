@@ -29,6 +29,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AreYouSureDialog } from './views/dialogs/are-you-sure-dialog/are-you-sure.dialog';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     DeckCardItemComponent,
     ProfileComponent,
     CreateDeckComponent,
+    AreYouSureDialog,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
