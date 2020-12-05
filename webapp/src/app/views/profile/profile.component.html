@@ -1,34 +1,35 @@
 <div class="container fullscreen">
   <app-header title="Edit Profile" [showUserButtons]="false"></app-header>
-  <form id="profile" *ngIf="user">
-    <mat-form-field appearance="fill">
-      <mat-label>
-        Username
-      </mat-label>
-      <label for="username"></label>
-      <input matInput id="username" placeholder="Username" [value]="user.username" [disabled]="true">
-    </mat-form-field>
+  <div class="form-container">
+    <form id="profile" *ngIf="user" [formGroup]="profileForm" (ngSubmit)="save()">
+      <mat-form-field appearance="fill">
+        <mat-label>
+          Username
+        </mat-label>
+        <label for="username"></label>
+        <input matInput id="username" placeholder="Username" [value]="user.username" [disabled]="true">
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>
-        Given Name
-      </mat-label>
-      <label for="givenName"></label>
-      <input matInput id="givenName" placeholder="Given Name" [value]="user.givenName" [formControl]="givenName">
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>
+          Given Name
+        </mat-label>
+        <label for="givenName"></label>
+        <input matInput id="givenName" placeholder="Given Name" formControlName="givenName">
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>
-        Family Name
-      </mat-label>
-      <label for="familyName"></label>
-      <input matInput id="familyName" placeholder="Family Name" [value]="user.familyName" [formControl]="familyName">
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>
+          Family Name
+        </mat-label>
+        <label for="familyName"></label>
+        <input matInput id="familyName" placeholder="Family Name" formControlName="familyName">
+      </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="save()">Save</button>
-    <button mat-raised-button color="warn" (click)="delete()">Delete</button>
-
-    <p *ngIf="error">{{error}}</p>
-  </form>
-
+      <div class="button-container">
+        <button mat-raised-button color="primary" (click)="save()" [disabled]="!profileForm.valid" type="submit" (submit)="save()">Save Changes</button>
+        <button mat-raised-button color="warn" (click)="delete()">Delete Account</button>
+      </div>
+    </form>
+  </div>
 </div>

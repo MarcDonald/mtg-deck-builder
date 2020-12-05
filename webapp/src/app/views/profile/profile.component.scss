@@ -1,14 +1,25 @@
 .container {
   padding: 0 16em;
   background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.form-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 form {
+  width: 30%;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-input {
-  width: 25%
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

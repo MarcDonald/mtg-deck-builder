@@ -1,15 +1,14 @@
 <mat-card>
   <mat-card-title>Create New Deck</mat-card-title>
-  <form>
+  <form [formGroup]="createDeckForm">
     <mat-form-field appearance="fill">
       <mat-label>
         Deck Name
       </mat-label>
       <label for="deckName"></label>
-      <input matInput id="deckName" placeholder="Deck Name" [formControl]="deckName">
+      <input matInput id="deckName" placeholder="Deck Name" formControlName="deckName">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="createDeck()">Create</button>
-    <p *ngIf="error">{{error}}</p>
+    <button mat-raised-button color="primary" (click)="createDeck()" [disabled]="!createDeckForm.valid">Create</button>
   </form>
 </mat-card>

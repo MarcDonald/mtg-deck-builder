@@ -4,7 +4,7 @@
       Username
     </mat-label>
     <label for="username"></label>
-    <input matInput id="username" placeholder="Username" [formControl]="username">
+    <input matInput id="username" placeholder="Username" formControlName="username">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -12,10 +12,10 @@
       Password
     </mat-label>
     <label for="password"></label>
-    <input matInput id="password" type="password" placeholder="Password" [formControl]="password">
+    <input matInput id="password" type="password" placeholder="Password" formControlName="password">
   </mat-form-field>
 
   <mat-error *ngIf="error">{{error}}</mat-error>
 
-  <button mat-raised-button color="primary" (click)="login()">Login</button>
+  <button mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="login()">Login</button>
 </form>

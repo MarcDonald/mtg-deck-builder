@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-register',
@@ -12,37 +20,48 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  username = new FormControl('');
-  password = new FormControl('');
-  confirmPassword = new FormControl('');
-  givenName = new FormControl('');
-  familyName = new FormControl('');
-  error: null | string = null;
+  registerForm: FormGroup;
+  confirmPasswordErrorMatcher = new MismatchingPasswordErrorStateMatcher();
+  usernameTakenErrorMatcher = new UsernameTakenErrorStateMatcher();
 
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.username.valueChanges.subscribe(() => (this.error = null));
-    this.password.valueChanges.subscribe(() => (this.error = null));
-    this.givenName.valueChanges.subscribe(() => (this.error = null));
-    this.familyName.valueChanges.subscribe(() => (this.error = null));
+    this.registerForm = this.formBuilder.group(
+      {
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        confirmPassword: ['', Validators.required],
+        givenName: ['', Validators.required],
+        familyName: ['', Validators.required],
+      },
+      { validators: [this.confirmPasswordValidator] }
+    );
   }
 
   async register() {
+    const {
+      username,
+      password,
+      givenName,
+      familyName,
+    } = this.registerForm.value;
     this.userService
       .register({
-        username: this.username.value,
-        password: this.password.value,
-        givenName: this.givenName.value,
-        familyName: this.familyName.value,
+        username: username,
+        password: password,
+        givenName: givenName,
+        familyName: familyName,
       })
       .pipe(
         catchError((err, caught) => {
-          this.error = err.error.message;
+          if (err.error.message === 'User with that username already exists')
+            this.registerForm.setErrors({ usernameTaken: true });
           return of(null);
         })
       )
@@ -53,13 +72,39 @@ export class RegisterComponent implements OnInit {
       });
   }
 
+  confirmPasswordValidator(group: FormGroup) {
+    const { password, confirmPassword } = group.value;
+    return password === confirmPassword ? null : { mismatchingPassword: true };
+  }
+
   async login() {
-    this.authService
-      .login(this.username.value, this.password.value)
-      .subscribe((user) => {
-        if (user) {
-          this.router.navigateByUrl('/decks');
-        }
-      });
+    const { username, password } = this.registerForm.value;
+    this.authService.login(username, password).subscribe((user) => {
+      if (user) {
+        this.router.navigateByUrl('/decks');
+      }
+    });
+  }
+}
+
+class MismatchingPasswordErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
+    const isControlInvalid =
+      control && control.invalid && control.touched && control.parent.touched;
+    return isControlInvalid || form.hasError('mismatchingPassword');
+  }
+}
+
+class UsernameTakenErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
+    const isControlInvalid =
+      control && control.invalid && control.parent.touched;
+    return isControlInvalid || form.hasError('usernameTaken');
   }
 }

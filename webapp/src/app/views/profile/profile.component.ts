@@ -3,7 +3,12 @@ import User from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -13,38 +18,52 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  profileForm: FormGroup;
   user: User = null;
-  error: string | null = null;
-  familyName = new FormControl('');
-  givenName = new FormControl('');
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.userService
       .getCurrentUserDetails()
-      .pipe(catchError((err, caught) => of(null)))
-      .subscribe((user) => (this.user = user));
+      .pipe(
+        catchError((err, caught) => {
+          console.error(err);
+          return of(null);
+        })
+      )
+      .subscribe((user) => {
+        this.user = user;
+        this.profileForm.controls.givenName.setValue(user.givenName);
+        this.profileForm.controls.familyName.setValue(user.familyName);
+      });
+
+    this.profileForm = this.formBuilder.group({
+      givenName: ['', Validators.required],
+      familyName: ['', Validators.required],
+    });
   }
 
   save() {
+    const { givenName, familyName } = this.profileForm.value;
     let givenNameToUpdateTo = this.user.givenName;
-    if (this.givenName.value) {
-      givenNameToUpdateTo = this.givenName.value;
+    if (givenName) {
+      givenNameToUpdateTo = givenName;
     }
     let familyNameToUpdateTo = this.user.familyName;
-    if (this.familyName.value) {
-      familyNameToUpdateTo = this.familyName.value;
+    if (familyName) {
+      familyNameToUpdateTo = familyName;
     }
     this.userService
       .updateUser(givenNameToUpdateTo, familyNameToUpdateTo)
       .pipe(
         catchError((err, caught) => {
-          this.error = err.message;
+          console.error(err);
           return of(null);
         })
       )
@@ -60,7 +79,7 @@ export class ProfileComponent implements OnInit {
       .deleteUser()
       .pipe(
         catchError((err, caught) => {
-          this.error = err.message;
+          console.error(err);
           return of(null);
         })
       )

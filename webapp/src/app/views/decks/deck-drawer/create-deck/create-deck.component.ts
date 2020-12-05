@@ -1,5 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { DeckService } from '../../../../services/deck.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -10,29 +15,34 @@ import { of } from 'rxjs';
   styleUrls: ['./create-deck.component.scss'],
 })
 export class CreateDeckComponent implements OnInit {
-  deckName = new FormControl('');
-  error: string | null = null;
+  createDeckForm: FormGroup;
   @Output() deckCreated: EventEmitter<string> = new EventEmitter();
 
-  constructor(private deckService: DeckService) {}
+  constructor(
+    private deckService: DeckService,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    this.deckName.valueChanges.subscribe((value) => (this.error = null));
+    this.createDeckForm = this.formBuilder.group({
+      deckName: ['', Validators.required],
+    });
   }
 
   createDeck() {
+    const { deckName } = this.createDeckForm.value;
     this.deckService
-      .createDeck(this.deckName.value)
+      .createDeck(deckName)
       .pipe(
         catchError((err, caught) => {
-          this.error = err.error.message;
+          this.createDeckForm.setErrors(err.error.message);
           return of(null);
         })
       )
       .subscribe((res) => {
         if (res) {
           this.deckCreated.emit(res.deckId);
-          this.deckName.setValue('');
+          this.createDeckForm.reset();
         }
       });
   }

@@ -1,10 +1,11 @@
-<form id="register">
+<form id="register" [formGroup]="registerForm">
   <mat-form-field appearance="fill">
     <mat-label>
       Username
     </mat-label>
     <label for="username"></label>
-    <input matInput id="username" placeholder="Username" [formControl]="username">
+    <input matInput id="username" placeholder="Username" formControlName="username" [errorStateMatcher]="usernameTakenErrorMatcher">
+    <mat-error *ngIf="registerForm.hasError('usernameTaken')">That username has already been taken</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -12,7 +13,7 @@
       Password
     </mat-label>
     <label for="password"></label>
-    <input matInput id="password" type="password" placeholder="Password" [formControl]="password">
+    <input matInput id="password" type="password" placeholder="Password" formControlName="password">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -20,7 +21,8 @@
       Confirm Password
     </mat-label>
     <label for="confirmPassword"></label>
-    <input matInput id="confirmPassword" type="password" placeholder="Confirm Password" [formControl]="confirmPassword">
+    <input matInput id="confirmPassword" type="password" placeholder="Confirm Password" formControlName="confirmPassword" [errorStateMatcher]="confirmPasswordErrorMatcher">
+    <mat-error *ngIf="registerForm.hasError('mismatchingPassword')">Passwords do not match</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -28,7 +30,7 @@
       Given Name
     </mat-label>
     <label for="givenName"></label>
-    <input matInput id="givenName" placeholder="Given Name" [formControl]="givenName">
+    <input matInput id="givenName" placeholder="Given Name" formControlName="givenName">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -36,10 +38,8 @@
       Family Name
     </mat-label>
     <label for="familyName"></label>
-    <input matInput id="familyName" placeholder="Family Name" [formControl]="familyName">
+    <input matInput id="familyName" placeholder="Family Name" formControlName="familyName">
   </mat-form-field>
 
-  <mat-error *ngIf="error">{{error}}</mat-error>
-
-  <button mat-raised-button color="primary" (click)="register()">Register</button>
+  <button mat-raised-button color="primary" [disabled]="!registerForm.valid" (click)="register()">Register</button>
 </form>

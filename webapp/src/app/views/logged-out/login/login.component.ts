@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -11,23 +11,30 @@ import { of } from 'rxjs';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  username = new FormControl('');
-  password = new FormControl('');
+  loginForm: FormGroup;
   error: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    this.username.valueChanges.subscribe(() => (this.error = null));
-    this.password.valueChanges.subscribe(() => (this.error = null));
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+    this.loginForm.valueChanges.subscribe(() => (this.error = null));
   }
 
   async login() {
+    const { username, password } = this.loginForm.value;
     this.authService
-      .login(this.username.value, this.password.value)
+      .login(username, password)
       .pipe(
         catchError((err, _) => {
-          this.password.setValue('');
+          this.loginForm.controls.password.setValue('');
           this.error = err.error.message;
           return of(false);
         })
