@@ -20,7 +20,6 @@ import { PageControlsComponent } from './components/page-controls/page-controls.
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 import { DeckCardItemComponent } from './views/decks/deck-card-display/deck-card-item/deck-card-item.component';
 import { ProfileComponent } from './views/profile/profile.component';
-import { CreateDeckComponent } from './views/decks/deck-drawer/create-deck/create-deck.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,6 +33,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { AreYouSureDialog } from './views/dialogs/are-you-sure/are-you-sure.dialog';
 import { CardDetailDialog } from './views/dialogs/card-detail/card-detail.dialog';
 import { AbilityDisplayComponent } from './views/dialogs/card-detail/ability-display/ability-display.component';
+import { TextInputDialog } from './views/dialogs/text-input-dialog/text-input.dialog';
 
 @NgModule({
   declarations: [
@@ -53,10 +53,10 @@ import { AbilityDisplayComponent } from './views/dialogs/card-detail/ability-dis
     PageNotFoundComponent,
     DeckCardItemComponent,
     ProfileComponent,
-    CreateDeckComponent,
     AreYouSureDialog,
     CardDetailDialog,
     AbilityDisplayComponent,
+    TextInputDialog,
   ],
   imports: [
     BrowserModule,

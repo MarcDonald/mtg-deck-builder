@@ -19,9 +19,7 @@ export class CardDetailDialog implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: CardDetailDialogData
   ) {}
 
-  ngOnInit(): void {
-    console.log(JSON.stringify(this.data.abilities, null, 2));
-  }
+  ngOnInit(): void {}
 
   onCloseClick() {
     this.dialogRef.close();

@@ -45,10 +45,12 @@ body {
   margin: 0 1em 0 1em;
   overflow-y: scroll;
   height: 100vh;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  // Don't display scrollbar
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+// Don't display scrollbar
 .scrollable-fullscreen-container::-webkit-scrollbar {
   display: none;
 }

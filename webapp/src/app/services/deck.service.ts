@@ -47,4 +47,14 @@ export class DeckService {
       true
     );
   }
+
+  updateDeck(deckId: string, newDeckName: string): Observable<any> {
+    return this.apiInteractor.put(
+      `decks/${deckId}`,
+      {
+        deckName: newDeckName,
+      },
+      true
+    );
+  }
 }

@@ -1,0 +1,16 @@
+@import "src/variables";
+
+mat-form-field {
+  width: 100%
+}
+
+#actions {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#actions button {
+  margin: 0 0.5em;
+}

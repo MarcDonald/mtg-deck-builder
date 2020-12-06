@@ -3,7 +3,9 @@ import { DeckService } from '../../../services/deck.service';
 import Page from '../../../models/page';
 import DeckShort from '../../../models/deck-short';
 import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { TextInputDialog } from '../../dialogs/text-input-dialog/text-input.dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-deck-drawer',
@@ -11,10 +13,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./deck-drawer.component.scss'],
 })
 export class DeckDrawerComponent implements OnInit {
-  constructor(private deckService: DeckService) {}
+  constructor(private deckService: DeckService, private dialog: MatDialog) {}
 
   selectedDeck: string | null = null;
-  displayCreateDeck: boolean = false;
   @Output() deckSelected: EventEmitter<string> = new EventEmitter();
   @Output() deckDeleted: EventEmitter<string> = new EventEmitter();
   @Input() shouldRefresh: Observable<boolean>;
@@ -56,11 +57,32 @@ export class DeckDrawerComponent implements OnInit {
     });
   }
 
-  deckCreated(deckId: string) {
-    this.makeApiRequest(this.page.pageNum);
-  }
+  displayCreateDeck() {
+    const dialogRef = this.dialog.open(TextInputDialog, {
+      data: {
+        title: 'Create New Deck',
+        inputLabel: 'Deck Name',
+        positiveText: 'Create',
+        cancelText: 'Cancel',
+      },
+    });
 
-  showHideCreateDeckClicked() {
-    this.displayCreateDeck = !this.displayCreateDeck;
+    dialogRef.afterClosed().subscribe((inputtedText) => {
+      if (inputtedText) {
+        this.deckService
+          .createDeck(inputtedText)
+          .pipe(
+            catchError((err, caught) => {
+              console.error(err);
+              return of(null);
+            })
+          )
+          .subscribe((res) => {
+            if (res) {
+              this.makeApiRequest(this.page.pageNum);
+            }
+          });
+      }
+    });
   }
 }

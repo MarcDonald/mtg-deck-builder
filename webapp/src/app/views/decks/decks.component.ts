@@ -73,18 +73,8 @@ export class DecksComponent implements OnInit {
       });
   }
 
-  removeCardFromDeck(cardDeckId: string) {
-    this.deckService
-      .removeCardFromDeck(this.selectedDeckSubject.value, cardDeckId)
-      .pipe(
-        catchError((err, caught) => {
-          console.error(err.message);
-          return of(null);
-        })
-      )
-      .subscribe((value) => {
-        this.refreshEmitter.emit(true);
-      });
+  deckUpdated() {
+    this.refreshEmitter.emit(true);
   }
 
   get showDeck(): boolean {
