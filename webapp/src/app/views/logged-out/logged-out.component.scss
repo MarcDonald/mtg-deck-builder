@@ -1,23 +1,23 @@
 @import '~src/variables.scss';
 
-.container {
+#container {
   // Image from Ryan Quintal on Unsplash (https://unsplash.com/photos/Vp8RnXSnJ6I) under the Unsplash License (https://unsplash.com/license)
   background-image: url("https://images.unsplash.com/photo-1593814681464-eef5af2b0628");
   background-size: cover;
   background-color: #cccccc;
 }
 
-.grid {
+#grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.whitespace {
+#whitespace {
   grid-column-start: 1;
   grid-column: span 3 / span 3;
 }
 
-.authentication {
+#authentication {
   background-color: white;
   border-radius: 0.5em;
   margin: 1em;

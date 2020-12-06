@@ -1,4 +1,4 @@
-.container {
+#container {
   padding: 0 16em;
   background-color: lightgray;
   display: flex;
@@ -6,7 +6,7 @@
   justify-items: center;
 }
 
-.form-container {
+#form-container {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -18,7 +18,7 @@ form {
   flex-direction: column;
 }
 
-.button-container {
+#button-container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;

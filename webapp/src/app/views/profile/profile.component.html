@@ -1,6 +1,6 @@
-<div class="container fullscreen">
+<div id="container" class="fullscreen">
   <app-header title="Edit Profile" [showUserButtons]="false"></app-header>
-  <div class="form-container">
+  <div id="form-container">
     <form id="profile" *ngIf="user" [formGroup]="profileForm">
       <mat-form-field appearance="fill">
         <mat-label>
@@ -26,7 +26,7 @@
         <input matInput id="familyName" placeholder="Family Name" formControlName="familyName">
       </mat-form-field>
 
-      <div class="button-container">
+      <div id="button-container">
         <button mat-raised-button color="primary" (click)="save()" [disabled]="!profileForm.valid">Save Changes</button>
         <button mat-raised-button color="warn" (click)="delete()">Delete Account</button>
       </div>

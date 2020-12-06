@@ -4,9 +4,9 @@
   <mat-card-subtitle *ngIf="card.abilities.length > 1">Plus {{card.abilities.length - 1}}
     more {{card.abilities.length > 2 ? 'abilities' : 'ability'}}</mat-card-subtitle>
   <div class="actions">
-    <button mat-icon-button matTooltip="View card details" label="View card details" (click)="openCardDetails()"
+    <button mat-icon-button matTooltip="View Full Card details" label="View Full Card details" (click)="openCardDetails()"
             style="padding: 0 !important;">
-      <mat-icon>open_in_new</mat-icon>
+      <mat-icon>open_in_full</mat-icon>
     </button>
 
     <button mat-icon-button matTooltip="Add Card to Deck" (click)="addCard()" style="padding: 0 !important;">

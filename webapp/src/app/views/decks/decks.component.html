@@ -1,17 +1,17 @@
-<div class="fullscreen grid">
-  <div class="deck-drawer">
+<div id="grid" class="fullscreen">
+  <div id="deck-drawer">
     <app-deck-drawer [shouldRefresh]="refresh" (deckSelected)="selectDeck($event)"
                      (deckDeleted)="deckDeleted($event)"></app-deck-drawer>
   </div>
-  <div class="main-content scrollable-fullscreen-container">
+  <div id="main-content" class="scrollable-fullscreen-container">
     <app-header [title]="headerTitle"></app-header>
     <app-deck-card-display *ngIf="showDeck" [deckId]="selectedDeck" [shouldRefresh]="refresh" (deckUpdated)="deckUpdated()"></app-deck-card-display>
-    <div *ngIf="!showDeck" class="no-deck-selected-message">
+    <div *ngIf="!showDeck" id="no-deck-selected-message">
       <h2>Click a deck on the left to start editing</h2>
       <h2><----------------------------------------</h2>
     </div>
   </div>
-  <div class="card-drawer" *ngIf="showDeck">
+  <div id="card-drawer" *ngIf="showDeck">
     <app-card-search (cardAdded)="addCard($event)"></app-card-search>
   </div>
 </div>

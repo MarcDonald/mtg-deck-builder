@@ -1,6 +1,6 @@
 <h2 *ngIf="error">Error loading deck: {{error}}</h2>
 <div *ngIf="deck">
-  <div class="title">
+  <div id="title">
     <h2>{{deck.name}}</h2>
     <button mat-icon-button matSuffix matTooltip="Edit Deck Name" (click)="onEditDeck()">
       <mat-icon>edit</mat-icon>

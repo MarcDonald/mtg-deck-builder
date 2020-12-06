@@ -1,23 +1,22 @@
 @import "src/variables";
 
-.container {
+#container {
   background: #FFFFFF;
   border-radius: 0.5rem;
   margin: 1em 0;
   padding: 0.5em;
-  cursor: pointer;
 }
 
-.container:hover {
+#container:hover {
   background-color: $darker-gray;
 }
 
-.title {
+#title {
   display: flex;
   justify-content: space-between;
 }
 
-.title button {
+#title button {
   padding: 0.5em 1em;
 }
 

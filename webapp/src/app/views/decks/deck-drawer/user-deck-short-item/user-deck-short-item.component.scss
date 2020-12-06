@@ -1,33 +1,21 @@
-@import "~src/variables";
+@import "src/variables";
 
-.container {
-  display: flex;
-  justify-content: space-between;
-  margin: 1em 0.5em;
-  align-items: center;
-}
-
-.deck-short-item {
+#container {
   background: $lighter-gray;
   border-radius: 0.5rem;
-  cursor: pointer;
-  width: 75%;
+  margin: 1em 0;
   padding: 0.5em;
 }
 
-.deck-short-item:hover {
+#container:hover {
   background-color: $darker-gray;
 }
 
-.deck-short-item-selected {
-  background-color: $darker-gray;
+#title {
+  display: flex;
+  justify-content: space-between;
 }
 
-h4 {
-  padding: 0.25em;
-  font-size: 1.25rem;
-}
-
-p {
-  padding: 0 0 0.25em 0.25em;
+#title button {
+  padding: 0.5em 1em;
 }

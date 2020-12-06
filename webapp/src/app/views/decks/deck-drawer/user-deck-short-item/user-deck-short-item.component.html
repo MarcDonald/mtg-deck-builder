@@ -1,9 +1,18 @@
-<div class="container">
-  <mat-card class="deck-short-item {{selected ? 'deck-short-item-selected' : ''}}" (click)="selectDeck()">
+<mat-card id="container">
+  <div id="title">
     <mat-card-title>{{deck.name}}</mat-card-title>
-    <mat-card-subtitle>Cards: {{deck.cardCount}}</mat-card-subtitle>
-  </mat-card>
-  <button mat-fab matTooltip="Delete Deck" color="warn" (click)="deleteDeck()" style="padding: 0 !important;">
-    <mat-icon>delete</mat-icon>
-  </button>
-</div>
+    <div>
+      <button mat-icon-button matTooltip="View Deck" label="View Deck" (click)="selectDeck()"
+              style="padding: 0 !important;">
+        <mat-icon>open_in_new</mat-icon>
+      </button>
+
+      <button mat-icon-button matTooltip="Delete Deck" label="Delete Deck"
+              (click)="deleteDeck()"
+              style="padding: 0 !important;">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-card-subtitle>Cards: {{deck.cardCount}}</mat-card-subtitle>
+</mat-card>
