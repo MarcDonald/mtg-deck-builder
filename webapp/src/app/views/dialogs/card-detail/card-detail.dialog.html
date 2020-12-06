@@ -1,0 +1,14 @@
+<div class="title">
+  <h1 mat-dialog-title>{{data.name}}</h1>
+  <button mat-icon-button matTooltip="Close" (click)="onCloseClick()" style="padding: 0 !important;">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content>
+  <mat-tab-group mat-align-tabs="center" animationDuration="250ms" *ngIf="data.abilities.length > 1">
+    <mat-tab *ngFor="let ability of data.abilities; let i = index" label="Ability {{i + 1}}">
+      <app-ability-display [ability]="ability"></app-ability-display>
+    </mat-tab>
+  </mat-tab-group>
+  <app-ability-display *ngIf="data.abilities.length === 1" [ability]="data.abilities[0]"></app-ability-display>
+</div>

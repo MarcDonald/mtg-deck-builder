@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import DeckShort from '../../../../models/deck-short';
-import { AreYouSureDialog } from '../../../dialogs/are-you-sure-dialog/are-you-sure.dialog';
+import { AreYouSureDialog } from '../../../dialogs/are-you-sure/are-you-sure.dialog';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

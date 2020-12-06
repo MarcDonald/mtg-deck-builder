@@ -30,7 +30,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AreYouSureDialog } from './views/dialogs/are-you-sure-dialog/are-you-sure.dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AreYouSureDialog } from './views/dialogs/are-you-sure/are-you-sure.dialog';
+import { CardDetailDialog } from './views/dialogs/card-detail/card-detail.dialog';
+import { AbilityDisplayComponent } from './views/dialogs/card-detail/ability-display/ability-display.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,8 @@ import { AreYouSureDialog } from './views/dialogs/are-you-sure-dialog/are-you-su
     ProfileComponent,
     CreateDeckComponent,
     AreYouSureDialog,
+    CardDetailDialog,
+    AbilityDisplayComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +73,7 @@ import { AreYouSureDialog } from './views/dialogs/are-you-sure-dialog/are-you-su
     MatInputModule,
     MatTooltipModule,
     MatDialogModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

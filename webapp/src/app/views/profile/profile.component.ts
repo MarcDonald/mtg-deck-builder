@@ -12,7 +12,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AreYouSureDialog } from '../dialogs/are-you-sure-dialog/are-you-sure.dialog';
+import { AreYouSureDialog } from '../dialogs/are-you-sure/are-you-sure.dialog';
 
 @Component({
   selector: 'app-profile',

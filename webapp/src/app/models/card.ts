@@ -1,7 +1,7 @@
-import Variant from './variant';
+import Ability from './ability';
 
 export default interface Card {
   id: string;
   name: string;
-  variants: Variant[];
+  abilities: Ability[];
 }

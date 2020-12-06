@@ -1,0 +1,21 @@
+<section><h1>Mana Cost</h1>
+  <p>{{ability.manaCost ? ability.manaCost : '0'}}</p></section>
+<section>
+  <h1>Type</h1>
+  <p>{{ability.type}}</p>
+</section>
+<section>
+  <h1>Text</h1>
+  <p>{{ability.text}}</p>
+</section>
+<div [@.disabled]="disableAnimation">
+  <mat-expansion-panel *ngIf="ability.rulings.length > 0">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Competitive Rulings</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor="let ruling of ability.rulings">
+      <h3>{{ruling.date}}</h3>
+      <p>{{ruling.text}}</p>
+    </div>
+  </mat-expansion-panel>
+</div>
