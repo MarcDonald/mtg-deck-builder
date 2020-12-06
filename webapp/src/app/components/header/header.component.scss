@@ -1,11 +1,12 @@
 header {
   background-color: white;
   border-radius: 0.5rem;
-  margin: 1em;
-  padding: 1em;
+  margin: 1vh 1em;
+  padding: 0 1em;
   text-align: center;
   align-items: center;
   display: grid;
+  height: 8vh;
   grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 

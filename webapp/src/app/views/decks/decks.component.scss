@@ -1,23 +1,56 @@
+@import "src/variables";
+
+#container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+  background-color: lightgray;
+}
+
+#header {
+  grid-row-start: 1;
+}
+
 #grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   background-color: lightgray;
 }
 
-#deck-drawer {
-  background-color: white;
-}
-
 #main-content {
   grid-column-start: 2;
   grid-column: span 3 / span 3;
   background-color: lightgray;
+  margin: 0 1em 0 1em;
+  overflow-y: scroll;
+  height: 90vh;
+  // Don't display scrollbar
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-#card-drawer {
-  background-color: white;
+// Don't display scrollbar
+#main-content::-webkit-scrollbar {
+  display: none;
 }
 
 #no-deck-selected-message {
   text-align: center;
+}
+
+.side-drawer {
+  background-color: white;
+  margin: 0 1em;
+  padding: 0 1em;
+  border-radius: 0.5em;
+  height: 89vh;
+  overflow-y: scroll;
+  // Don't display scrollbar
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+// Don't display scrollbar
+.side-drawer::-webkit-scrollbar {
+  display: none;
 }

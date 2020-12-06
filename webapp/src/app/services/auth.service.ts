@@ -13,6 +13,7 @@ export class AuthService {
 
   constructor(private apiInteractor: ApiInteractorService, router: Router) {
     const accessToken = localStorage.getItem('accessToken');
+    // Validates the access token and redirects you to the logged out page if the token isn't valid
     if (accessToken) {
       this.isLoggedIn = true;
       this.tokenLogin()

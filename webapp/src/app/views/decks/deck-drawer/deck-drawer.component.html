@@ -1,16 +1,15 @@
-<div class="scrollable-fullscreen-container">
-  <div id="title">
-    <h2>Your Decks</h2>
-    <button mat-icon-button matTooltip="Create New Deck" label="Create New Deck" (click)="displayCreateDeck()"
-            style="padding: 0 !important;">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
-  <div *ngIf="page != null">
-    <app-page-controls [page]="page" (goToPage)="changePage($event)"></app-page-controls>
-    <div *ngFor="let deck of page.data">
-      <app-user-deck-short-item [deck]="deck" [selected]="selectedDeck === deck.id"
-                                (deckSelected)="selectDeck(deck.id)" (delete)="deleteDeck($event)"></app-user-deck-short-item>
-    </div>
+<div id="title">
+  <h2>Your Decks</h2>
+  <button mat-icon-button matTooltip="Create New Deck" label="Create New Deck" (click)="displayCreateDeck()"
+          style="padding: 0 !important;">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<div *ngIf="page != null">
+  <app-page-controls [page]="page" (goToPage)="changePage($event)"></app-page-controls>
+  <div *ngFor="let deck of page.data">
+    <app-user-deck-short-item [deck]="deck" [selected]="selectedDeck === deck.id"
+                              (deckSelected)="selectDeck(deck.id)"
+                              (delete)="deleteDeck($event)"></app-user-deck-short-item>
   </div>
 </div>

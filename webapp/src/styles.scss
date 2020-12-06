@@ -16,7 +16,7 @@ $webapp-theme: mat-light-theme((
 
 @include angular-material-theme($webapp-theme);
 
-@import "variables";
+@import "src/variables";
 
 h1, h2, h3, h4, h5, h6, p, html, body {
   padding: 0;
@@ -39,18 +39,4 @@ body {
   left: 0;
   bottom: 0;
   position: absolute;
-}
-
-.scrollable-fullscreen-container {
-  margin: 0 1em 0 1em;
-  overflow-y: scroll;
-  height: 100vh;
-  // Don't display scrollbar
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-// Don't display scrollbar
-.scrollable-fullscreen-container::-webkit-scrollbar {
-  display: none;
 }

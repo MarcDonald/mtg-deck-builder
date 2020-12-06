@@ -1,14 +1,14 @@
 @import "src/variables";
 
 #container {
-  background: $lighter-gray;
+  background: $card-background;
   border-radius: 0.5rem;
   margin: 1em 0;
   padding: 0.5em;
 }
 
 #container:hover {
-  background-color: $darker-gray;
+  background-color: $card-background-dark;
 }
 
 #title {
