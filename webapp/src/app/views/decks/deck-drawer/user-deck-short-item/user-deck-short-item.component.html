@@ -3,13 +3,12 @@
     <mat-card-title>{{(deck.name.length > 15 ? (deck.name | slice:0:15) + '...' : (deck.name))}}</mat-card-title>
     <div>
       <button mat-icon-button matTooltip="View Deck" label="View Deck" (click)="selectDeck()"
-              style="padding: 0 !important;">
+              class="mat-icon-button-center">
         <mat-icon>open_in_new</mat-icon>
       </button>
 
-      <button mat-icon-button matTooltip="Delete Deck" label="Delete Deck"
-              (click)="deleteDeck()"
-              style="padding: 0 !important;">
+      <button mat-icon-button matTooltip="Delete Deck" label="Delete Deck" (click)="deleteDeck()"
+              class="mat-icon-button-center">
         <mat-icon>delete</mat-icon>
       </button>
     </div>

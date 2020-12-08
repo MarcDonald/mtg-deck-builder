@@ -3,13 +3,12 @@
     <mat-card-title>{{card.name}}</mat-card-title>
     <div>
       <button mat-icon-button matTooltip="View Full Card details" label="View Full Card details" (click)="openCardDetails()"
-              style="padding: 0 !important;">
+              class="mat-icon-button-center">
         <mat-icon>open_in_full</mat-icon>
       </button>
 
       <button mat-icon-button matTooltip="Remove Card from Deck" label="Remove Card from Deck"
-              (click)="removeCardFromDeck()"
-              style="padding: 0 !important;">
+              (click)="removeCardFromDeck()" class="mat-icon-button-center">
         <mat-icon>close</mat-icon>
       </button>
     </div>

@@ -40,3 +40,8 @@ body {
   bottom: 0;
   position: absolute;
 }
+
+// This is a fix for the mat-icon-button not centering the icon correctly
+.mat-icon-button-center {
+  padding: 0 !important;
+}

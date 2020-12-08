@@ -13,28 +13,28 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./deck-drawer.component.scss'],
 })
 export class DeckDrawerComponent implements OnInit {
-  constructor(private deckService: DeckService, private dialog: MatDialog) {}
-
-  selectedDeck: string | null = null;
+  @Input() shouldRefresh: Observable<boolean>;
   @Output() deckSelected: EventEmitter<string> = new EventEmitter();
   @Output() deckDeleted: EventEmitter<string> = new EventEmitter();
-  @Input() shouldRefresh: Observable<boolean>;
 
+  selectedDeck: string | null = null;
   page: Page<DeckShort[]>;
   error: null | string = null;
 
+  constructor(private deckService: DeckService, private dialog: MatDialog) {}
+
   ngOnInit(): void {
-    this.makeApiRequest(1);
-    this.shouldRefresh.subscribe((value) => {
-      if (value) this.makeApiRequest(this.page.pageNum);
+    this.fetchDecks(1);
+    this.shouldRefresh.subscribe((refresh) => {
+      if (refresh) this.fetchDecks(this.page.pageNum);
     });
   }
 
   changePage(pageToGoTo: number) {
-    this.makeApiRequest(pageToGoTo);
+    this.fetchDecks(pageToGoTo);
   }
 
-  makeApiRequest(page: number) {
+  fetchDecks(page: number) {
     this.deckService
       .getUserDecks(page)
       .pipe(catchError((err, caught) => (this.error = err.message)))
@@ -51,10 +51,20 @@ export class DeckDrawerComponent implements OnInit {
   }
 
   deleteDeck(deckId: string) {
-    this.deckService.deleteDeck(deckId).subscribe((value) => {
-      this.deckDeleted.emit(deckId);
-      this.makeApiRequest(this.page.pageNum);
-    });
+    this.deckService
+      .deleteDeck(deckId)
+      .pipe(
+        catchError((err, caught) => {
+          this.error = err.message;
+          return of(null);
+        })
+      )
+      .subscribe((value) => {
+        if (value) {
+          this.deckDeleted.emit(deckId);
+          this.fetchDecks(this.page.pageNum);
+        }
+      });
   }
 
   displayCreateDeck() {
@@ -79,7 +89,7 @@ export class DeckDrawerComponent implements OnInit {
           )
           .subscribe((res) => {
             if (res) {
-              this.makeApiRequest(this.page.pageNum);
+              this.fetchDecks(this.page.pageNum);
             }
           });
       }

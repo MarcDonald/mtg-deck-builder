@@ -9,10 +9,10 @@ import { AreYouSureDialog } from '../../../dialogs/are-you-sure/are-you-sure.dia
 
 @Component({
   selector: 'app-note-display',
-  templateUrl: './note-display.component.html',
-  styleUrls: ['./note-display.component.scss'],
+  templateUrl: './note-display-item.component.html',
+  styleUrls: ['./note-display-item.component.scss'],
 })
-export class NoteDisplayComponent implements OnInit {
+export class NoteDisplayItemComponent implements OnInit {
   @Input() note: Note;
   @Input() deckId: string;
   @Output() noteUpdated: EventEmitter<any> = new EventEmitter<any>();

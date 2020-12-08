@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CardSearchBarComponent } from './views/decks/card-search/card-search-bar/card-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardSearchView } from './views/decks/card-search/card-search.view';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,7 +17,7 @@ import { DeckDrawerComponent } from './views/decks/deck-drawer/deck-drawer.compo
 import { DeckDetailsDisplayComponent } from './views/decks/deck-details-display/deck-details-display.component';
 import { PageControlsComponent } from './components/page-controls/page-controls.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
-import { DeckCardItemComponent } from './views/decks/deck-details-display/deck-card-item/deck-card-item.component';
+import { CardInDeckDisplayItem } from './views/decks/deck-details-display/card-in-deck-display-item/card-in-deck-display-item.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
@@ -34,12 +33,12 @@ import { AreYouSureDialog } from './views/dialogs/are-you-sure/are-you-sure.dial
 import { CardDetailDialog } from './views/dialogs/card-detail/card-detail.dialog';
 import { AbilityDisplayComponent } from './views/dialogs/card-detail/ability-display/ability-display.component';
 import { TextInputDialog } from './views/dialogs/text-input-dialog/text-input.dialog';
-import { NoteDisplayComponent } from './views/decks/deck-details-display/note-display/note-display.component';
+import { NoteDisplayItemComponent } from './views/decks/deck-details-display/note-display-item/note-display-item.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CardSearchBarComponent,
     CardSearchView,
     CardSearchResultItemComponent,
     LoggedOutComponent,
@@ -52,13 +51,13 @@ import { NoteDisplayComponent } from './views/decks/deck-details-display/note-di
     DeckDetailsDisplayComponent,
     PageControlsComponent,
     PageNotFoundComponent,
-    DeckCardItemComponent,
+    CardInDeckDisplayItem,
     ProfileComponent,
     AreYouSureDialog,
     CardDetailDialog,
     AbilityDisplayComponent,
     TextInputDialog,
-    NoteDisplayComponent,
+    NoteDisplayItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +75,7 @@ import { NoteDisplayComponent } from './views/decks/deck-details-display/note-di
     MatTooltipModule,
     MatDialogModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

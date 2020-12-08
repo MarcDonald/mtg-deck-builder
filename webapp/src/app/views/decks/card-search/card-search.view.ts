@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CardService } from '../../../services/card.service';
 import Card from '../../../models/card';
 import Page from '../../../models/page';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-card-search',
@@ -9,33 +10,33 @@ import Page from '../../../models/page';
   styleUrls: ['./card-search.view.scss'],
 })
 export class CardSearchView implements OnInit {
-  private searchTerm: string;
   page: Page<Array<Card>> = null;
   newSearch: EventEmitter<string> = new EventEmitter();
+  searchTerm = new FormControl('');
+
   @Output() cardAdded: EventEmitter<string> = new EventEmitter();
 
   constructor(private cardService: CardService) {}
 
   ngOnInit(): void {}
 
-  onSearch(searchTerm: string) {
-    if (searchTerm && typeof searchTerm === 'string') {
-      this.searchTerm = searchTerm;
-      this.newSearch.emit(searchTerm);
-      this.makeApiRequest(1);
+  onSearch() {
+    if (this.searchTerm.value) {
+      this.newSearch.emit(this.searchTerm.value);
+      this.doSearch(1);
     }
   }
 
-  makeApiRequest(pageNumber: number) {
+  doSearch(pageNumber: number) {
     this.cardService
-      .searchCards(this.searchTerm, pageNumber)
+      .searchCards(this.searchTerm.value, pageNumber)
       .subscribe((page) => {
         this.page = page;
       });
   }
 
   goToPage(pageToGoTo: number) {
-    this.makeApiRequest(pageToGoTo);
+    this.doSearch(pageToGoTo);
   }
 
   addCard(cardId: string) {

@@ -16,6 +16,7 @@ export class DeckDetailsDisplayComponent implements OnInit {
   @Input() deckId: Observable<string>;
   @Input() shouldRefresh: Observable<boolean>;
   @Output() deckUpdated: EventEmitter<any> = new EventEmitter<any>();
+
   deck: DeckFull;
   error: string | null = null;
 
@@ -65,7 +66,10 @@ export class DeckDetailsDisplayComponent implements OnInit {
         })
       )
       .subscribe((value) => {
-        this.loadDeck(deckId);
+        if (value) {
+          this.loadDeck(deckId);
+          this.deckUpdated.emit();
+        }
       });
   }
 
@@ -123,7 +127,7 @@ export class DeckDetailsDisplayComponent implements OnInit {
           )
           .subscribe((value) => {
             if (value) {
-              this.deckUpdated.emit(value);
+              this.deckUpdated.emit();
             }
           });
       }
@@ -131,6 +135,6 @@ export class DeckDetailsDisplayComponent implements OnInit {
   }
 
   onNoteUpdated() {
-    this.deckUpdated.emit(true);
+    this.deckUpdated.emit();
   }
 }

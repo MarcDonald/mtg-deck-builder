@@ -2,3 +2,13 @@ h2 {
   text-align: center;
   margin: 1em 0 0.5em 0;
 }
+
+#search-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-form-field {
+  width: 100%;
+}

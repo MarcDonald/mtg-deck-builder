@@ -15,8 +15,6 @@ import { AuthService } from '../services/auth.service';
 export class LogoutGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  // TODO guards don't work if the access token in local storage is there but invalid
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

@@ -5,10 +5,10 @@ import { CardDetailDialog } from '../../../dialogs/card-detail/card-detail.dialo
 
 @Component({
   selector: 'app-deck-card-item',
-  templateUrl: './deck-card-item.component.html',
-  styleUrls: ['./deck-card-item.component.scss'],
+  templateUrl: './card-in-deck-display-item.component.html',
+  styleUrls: ['./card-in-deck-display-item.component.scss'],
 })
-export class DeckCardItemComponent implements OnInit {
+export class CardInDeckDisplayItem implements OnInit {
   @Input() card: DeckCard;
   @Output() removeCard: EventEmitter<string> = new EventEmitter();
 

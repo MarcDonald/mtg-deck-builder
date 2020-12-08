@@ -1,7 +1,19 @@
 <div >
   <h2>Add Cards</h2>
-  <app-card-search-bar (search)="onSearch($event)"></app-card-search-bar>
-  <div *ngIf="page != null">
+  <div id="search-bar-container">
+    <mat-form-field appearance="standard">
+      <mat-label>
+        Search
+      </mat-label>
+      <label for="searchTerm"></label>
+      <input matInput id="searchTerm" placeholder="Search" type="search" [formControl]="searchTerm"
+             (search)="onSearch()" (submit)="onSearch()">
+      <button mat-icon-button matSuffix (click)="onSearch()" type="submit" >
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div *ngIf="page !== null">
     <app-page-controls [page]="page" [reset]="newSearch.asObservable()" (goToPage)="goToPage($event)"></app-page-controls>
     <div *ngFor="let card of page.data">
       <app-card-search-result-item [card]="card" (added)="addCard($event)"></app-card-search-result-item>
