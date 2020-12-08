@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { TextInputDialog } from '../../dialogs/text-input-dialog/text-input.dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-deck-drawer',
@@ -19,9 +20,12 @@ export class DeckDrawerComponent implements OnInit {
 
   selectedDeck: string | null = null;
   page: Page<DeckShort[]>;
-  error: null | string = null;
 
-  constructor(private deckService: DeckService, private dialog: MatDialog) {}
+  constructor(
+    private deckService: DeckService,
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.fetchDecks(1);
@@ -37,7 +41,14 @@ export class DeckDrawerComponent implements OnInit {
   fetchDecks(page: number) {
     this.deckService
       .getUserDecks(page)
-      .pipe(catchError((err, caught) => (this.error = err.message)))
+      .pipe(
+        catchError((err, caught) => {
+          this.snackbar.open(err.error.message, null, {
+            duration: 2000,
+          });
+          return of(null);
+        })
+      )
       .subscribe((page: Page<Array<DeckShort>>) => {
         if (page) {
           this.page = page;
@@ -55,7 +66,9 @@ export class DeckDrawerComponent implements OnInit {
       .deleteDeck(deckId)
       .pipe(
         catchError((err, caught) => {
-          this.error = err.message;
+          this.snackbar.open(err.error.message, null, {
+            duration: 2000,
+          });
           return of(null);
         })
       )
@@ -83,7 +96,9 @@ export class DeckDrawerComponent implements OnInit {
           .createDeck(inputtedText)
           .pipe(
             catchError((err, caught) => {
-              console.error(err);
+              this.snackbar.open(err.error.message, null, {
+                duration: 2000,
+              });
               return of(null);
             })
           )

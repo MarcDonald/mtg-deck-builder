@@ -12,7 +12,7 @@ def add_note_to_deck(deck_id, note):
     }})
 
 
-def update_note_in_deck(deck_id, note_id, edited_note):
+def update_note_in_deck(note_id, edited_note):
     return decks.update_one({"notes._id": ObjectId(note_id)}, {"$set": edited_note})
 
 

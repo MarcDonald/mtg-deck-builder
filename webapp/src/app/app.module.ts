@@ -35,6 +35,7 @@ import { AbilityDisplayComponent } from './views/dialogs/card-detail/ability-dis
 import { TextInputDialog } from './views/dialogs/text-input-dialog/text-input.dialog';
 import { NoteDisplayItemComponent } from './views/decks/deck-details-display/note-display-item/note-display-item.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

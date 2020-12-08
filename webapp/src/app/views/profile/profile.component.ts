@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AreYouSureDialog } from '../dialogs/are-you-sure/are-you-sure.dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -28,7 +29,8 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +38,9 @@ export class ProfileComponent implements OnInit {
       .getCurrentUserDetails()
       .pipe(
         catchError((err, caught) => {
-          console.error(err);
+          this.snackbar.open(err.error.message, null, {
+            duration: 2000,
+          });
           return of(null);
         })
       )
@@ -66,7 +70,9 @@ export class ProfileComponent implements OnInit {
       .updateUser(givenNameToUpdateTo, familyNameToUpdateTo)
       .pipe(
         catchError((err, caught) => {
-          console.error(err);
+          this.snackbar.open(err.error.message, null, {
+            duration: 2000,
+          });
           return of(null);
         })
       )
@@ -89,7 +95,9 @@ export class ProfileComponent implements OnInit {
           .deleteUser()
           .pipe(
             catchError((err, caught) => {
-              console.error(err);
+              this.snackbar.open(err.error.message, null, {
+                duration: 2000,
+              });
               return of(null);
             })
           )

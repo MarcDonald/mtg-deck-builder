@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { TextInputDialog } from '../../dialogs/text-input-dialog/text-input.dialog';
 import { NoteService } from '../../../services/note.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-deck-details-display',
@@ -23,7 +24,8 @@ export class DeckDetailsDisplayComponent implements OnInit {
   constructor(
     private deckService: DeckService,
     private noteService: NoteService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +46,9 @@ export class DeckDetailsDisplayComponent implements OnInit {
       .pipe(
         catchError((err, caught) => {
           this.error = err.error.message;
+          this.snackbar.open(err.error.message, null, {
+            duration: 2000,
+          });
           return of(null);
         })
       )
@@ -61,7 +66,9 @@ export class DeckDetailsDisplayComponent implements OnInit {
       .removeCardFromDeck(deckId, cardDeckId)
       .pipe(
         catchError((err, caught) => {
-          console.error(err.message);
+          this.snackbar.open(err.error.message, null, {
+            duration: 2000,
+          });
           return of(null);
         })
       )
@@ -90,7 +97,9 @@ export class DeckDetailsDisplayComponent implements OnInit {
           .updateDeck(this.deck.id, inputtedText)
           .pipe(
             catchError((err, caught) => {
-              this.error = err.error.message;
+              this.snackbar.open(err.error.message, null, {
+                duration: 2000,
+              });
               return of(null);
             })
           )
@@ -120,8 +129,10 @@ export class DeckDetailsDisplayComponent implements OnInit {
           .addNoteToDeck(this.deck.id, inputtedText)
           .pipe(
             catchError((err, caught) => {
-              console.error(JSON.stringify(err, null, 2));
               this.error = err.error.message;
+              this.snackbar.open(err.error.message, null, {
+                duration: 2000,
+              });
               return of(null);
             })
           )

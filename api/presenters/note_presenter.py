@@ -36,7 +36,7 @@ def update_note_in_deck(deck_id, note_id, note_message, username):
                 edited_note = {
                     "notes.$.message": note_message
                 }
-                result = note_repository.update_note_in_deck(deck_id, note_id, edited_note)
+                result = note_repository.update_note_in_deck(note_id, edited_note)
                 if result.matched_count > 0:
                     return {
                         "id": str(note_id),

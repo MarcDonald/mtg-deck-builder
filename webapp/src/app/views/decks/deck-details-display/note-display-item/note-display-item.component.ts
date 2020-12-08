@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AreYouSureDialog } from '../../../dialogs/are-you-sure/are-you-sure.dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-note-display',
@@ -17,7 +18,11 @@ export class NoteDisplayItemComponent implements OnInit {
   @Input() deckId: string;
   @Output() noteUpdated: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private noteService: NoteService, private dialog: MatDialog) {}
+  constructor(
+    private noteService: NoteService,
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {}
 
@@ -33,7 +38,9 @@ export class NoteDisplayItemComponent implements OnInit {
           .removeNoteFromDeck(this.deckId, this.note.id)
           .pipe(
             catchError((err, caught) => {
-              console.error(JSON.stringify(err, null, 2));
+              this.snackbar.open(err.error.message, null, {
+                duration: 2000,
+              });
               return of(null);
             })
           )
@@ -64,7 +71,9 @@ export class NoteDisplayItemComponent implements OnInit {
           .updateNoteInDeck(this.deckId, this.note.id, inputtedText)
           .pipe(
             catchError((err, caught) => {
-              console.error(JSON.stringify(err, null, 2));
+              this.snackbar.open(err.error.message, null, {
+                duration: 2000,
+              });
               return of(null);
             })
           )

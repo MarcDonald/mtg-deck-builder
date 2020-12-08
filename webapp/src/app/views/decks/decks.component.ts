@@ -5,6 +5,7 @@ import { BehaviorSubject, of } from 'rxjs';
 import { DeckService } from '../../services/deck.service';
 import { catchError } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-decks',
@@ -23,7 +24,8 @@ export class DecksComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private deckService: DeckService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +66,9 @@ export class DecksComponent implements OnInit {
       .addCardToDeck(this.selectedDeckSubject.value, cardId)
       .pipe(
         catchError((err, caught) => {
-          console.error(err);
+          this.snackbar.open(err.error.message, null, {
+            duration: 2000,
+          });
           return of(null);
         })
       )
