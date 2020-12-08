@@ -1,10 +1,10 @@
 <div id="container">
   <div id="controls">
-    <button mat-raised-button color=primary matTooltip="Previous Page" (click)="goToPreviousPage()" [disabled]="currentPage === 1">
+    <button mat-stroked-button matTooltip="Previous Page" (click)="goToPreviousPage()" [disabled]="currentPage === 1">
       <mat-icon>arrow_back</mat-icon>
     </button>
     <p>Page: {{currentPage}}/{{page.maxPage}}</p>
-    <button mat-raised-button color=primary matTooltip="Next Page" (click)="goToNextPage()" [disabled]="currentPage === page?.maxPage">
+    <button mat-stroked-button matTooltip="Next Page" (click)="goToNextPage()" [disabled]="currentPage === page?.maxPage">
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </div>

@@ -15,10 +15,10 @@ import { RegisterComponent } from './views/logged-out/register/register.componen
 import { UserDeckShortItemComponent } from './views/decks/deck-drawer/user-deck-short-item/user-deck-short-item.component';
 import { HeaderComponent } from './components/header/header.component';
 import { DeckDrawerComponent } from './views/decks/deck-drawer/deck-drawer.component';
-import { DeckCardDisplayComponent } from './views/decks/deck-card-display/deck-card-display.component';
+import { DeckDetailsDisplayComponent } from './views/decks/deck-details-display/deck-details-display.component';
 import { PageControlsComponent } from './components/page-controls/page-controls.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
-import { DeckCardItemComponent } from './views/decks/deck-card-display/deck-card-item/deck-card-item.component';
+import { DeckCardItemComponent } from './views/decks/deck-details-display/deck-card-item/deck-card-item.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
@@ -34,6 +34,7 @@ import { AreYouSureDialog } from './views/dialogs/are-you-sure/are-you-sure.dial
 import { CardDetailDialog } from './views/dialogs/card-detail/card-detail.dialog';
 import { AbilityDisplayComponent } from './views/dialogs/card-detail/ability-display/ability-display.component';
 import { TextInputDialog } from './views/dialogs/text-input-dialog/text-input.dialog';
+import { NoteDisplayComponent } from './views/decks/deck-details-display/note-display/note-display.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { TextInputDialog } from './views/dialogs/text-input-dialog/text-input.di
     UserDeckShortItemComponent,
     HeaderComponent,
     DeckDrawerComponent,
-    DeckCardDisplayComponent,
+    DeckDetailsDisplayComponent,
     PageControlsComponent,
     PageNotFoundComponent,
     DeckCardItemComponent,
@@ -57,6 +58,7 @@ import { TextInputDialog } from './views/dialogs/text-input-dialog/text-input.di
     CardDetailDialog,
     AbilityDisplayComponent,
     TextInputDialog,
+    NoteDisplayComponent,
   ],
   imports: [
     BrowserModule,

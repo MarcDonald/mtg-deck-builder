@@ -2,6 +2,7 @@ from data import deck_repository, card_repository
 from utils.exceptions import NotFoundError, InvalidAccessError, InvalidDataError
 from utils.general_utils import validate_id
 from utils.pagination_utils import get_page_start
+from bson import ObjectId
 
 
 def create_deck(username, deck_name):
@@ -46,6 +47,10 @@ def get_deck_details(deck_id, username):
                 card['id'] = card_id
                 card['cardDeckId'] = str(card['deck_card_id'])
                 del card['deck_card_id']
+            for note in deck['notes']:
+                note_id = str(note['_id'])
+                del note['_id']
+                note['id'] = note_id
             return deck
         raise InvalidAccessError()
     raise NotFoundError()
@@ -70,14 +75,17 @@ def get_user_decks(username, page_num, page_size):
     deck_count = deck_repository.get_user_deck_count(username)
     returned_page = {}
     data = []
-    for result in decks:
-        deck_id = str(result['_id'])
-        del result['_id']
-        result['id'] = deck_id
-        card_count = len(result['cards'])
-        del result['cards']
-        result['cardCount'] = card_count
-        data.append(result)
+    for deck in decks:
+        deck_id = str(deck['_id'])
+        del deck['_id']
+        deck['id'] = deck_id
+        card_count = len(deck['cards'])
+        del deck['cards']
+        deck['cardCount'] = card_count
+        note_count = len(deck['notes'])
+        del deck['notes']
+        deck['noteCount'] = note_count
+        data.append(deck)
     returned_page['data'] = data
     returned_page['count'] = deck_count
     return returned_page
@@ -91,7 +99,8 @@ def add_card_to_deck(deck_id, card_id, username):
         if deck['username'] == username:
             card = card_repository.get_card_details(card_id)
             if card is not None:
-                deck_card_id = deck_repository.add_card_to_deck(deck_id, card_id)
+                deck_card_id = deck_repository.add_card_to_deck(
+                    deck_id, card_id)
                 return {
                     "cardDeckId": str(deck_card_id)
                 }

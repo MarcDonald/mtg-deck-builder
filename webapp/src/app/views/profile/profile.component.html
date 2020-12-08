@@ -1,7 +1,7 @@
 <div id="container" class="fullscreen">
   <app-header title="Edit Profile" [showUserButtons]="false"></app-header>
   <div id="form-container">
-    <form id="profile" *ngIf="user" [formGroup]="profileForm">
+    <form id="profile" *ngIf="user" (ngSubmit)="save()" [formGroup]="profileForm">
       <mat-form-field appearance="fill">
         <mat-label>
           Username
@@ -27,8 +27,8 @@
       </mat-form-field>
 
       <div id="button-container">
-        <button mat-raised-button color="primary" (click)="save()" [disabled]="!profileForm.valid">Save Changes</button>
-        <button mat-raised-button color="warn" (click)="delete()">Delete Account</button>
+        <button mat-flat-button color="warn" type="button" (click)="delete()">Delete Account</button>
+        <button mat-flat-button color="primary" type="submit" (click)="save()" [disabled]="!profileForm.valid">Save Changes</button>
       </div>
     </form>
   </div>

@@ -8,8 +8,8 @@
                        (deckDeleted)="deckDeleted($event)"></app-deck-drawer>
     </div>
     <div id="main-content" class="scrollable-fullscreen-container-with-header">
-      <app-deck-card-display *ngIf="showDeck" [deckId]="selectedDeck" [shouldRefresh]="refresh"
-                             (deckUpdated)="deckUpdated()"></app-deck-card-display>
+      <app-deck-details-display *ngIf="showDeck" [deckId]="selectedDeck" [shouldRefresh]="refresh"
+                                (deckUpdated)="deckUpdated()"></app-deck-details-display>
       <div *ngIf="!showDeck" id="no-deck-selected-message">
         <h2>Click a deck on the left to start editing</h2>
         <h2><----------------------------------------</h2>

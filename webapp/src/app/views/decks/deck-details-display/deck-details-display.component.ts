@@ -5,20 +5,25 @@ import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { TextInputDialog } from '../../dialogs/text-input-dialog/text-input.dialog';
+import { NoteService } from '../../../services/note.service';
 
 @Component({
-  selector: 'app-deck-card-display',
-  templateUrl: './deck-card-display.component.html',
-  styleUrls: ['./deck-card-display.component.scss'],
+  selector: 'app-deck-details-display',
+  templateUrl: './deck-details-display.component.html',
+  styleUrls: ['./deck-details-display.component.scss'],
 })
-export class DeckCardDisplayComponent implements OnInit {
+export class DeckDetailsDisplayComponent implements OnInit {
   @Input() deckId: Observable<string>;
   @Input() shouldRefresh: Observable<boolean>;
-  @Output() deckUpdated: EventEmitter<object> = new EventEmitter<object>();
+  @Output() deckUpdated: EventEmitter<any> = new EventEmitter<any>();
   deck: DeckFull;
   error: string | null = null;
 
-  constructor(private deckService: DeckService, private dialog: MatDialog) {}
+  constructor(
+    private deckService: DeckService,
+    private noteService: NoteService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.deckId.subscribe((id) => {
@@ -86,9 +91,46 @@ export class DeckCardDisplayComponent implements OnInit {
             })
           )
           .subscribe((value) => {
-            this.deckUpdated.emit(value);
+            if (value) {
+              this.deckUpdated.emit(value);
+            }
           });
       }
     });
+  }
+
+  addNewNote() {
+    const dialogRef = this.dialog.open(TextInputDialog, {
+      width: '1000px',
+      data: {
+        title: 'Add New Note',
+        inputLabel: 'Note',
+        positiveText: 'Add Note',
+        cancelText: 'Cancel',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((inputtedText) => {
+      if (inputtedText) {
+        this.noteService
+          .addNoteToDeck(this.deck.id, inputtedText)
+          .pipe(
+            catchError((err, caught) => {
+              console.error(JSON.stringify(err, null, 2));
+              this.error = err.error.message;
+              return of(null);
+            })
+          )
+          .subscribe((value) => {
+            if (value) {
+              this.deckUpdated.emit(value);
+            }
+          });
+      }
+    });
+  }
+
+  onNoteUpdated() {
+    this.deckUpdated.emit(true);
   }
 }

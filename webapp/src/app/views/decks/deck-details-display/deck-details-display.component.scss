@@ -1,0 +1,40 @@
+@import 'src/styles';
+
+#title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#notes {
+  margin-top: 1em;
+}
+
+#error {
+  color: indianred;
+}
+
+#no-notes-message {
+  margin: 0;
+}
+
+#notes-actions {
+  margin-top: 0.6em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#notes-actions button {
+  width: 35%;
+}
+
+h2 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 1em;
+}

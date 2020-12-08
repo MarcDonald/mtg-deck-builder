@@ -1,0 +1,29 @@
+<h2 id="error" *ngIf="error">Error loading deck: {{error}}</h2>
+<div *ngIf="deck">
+  <div id="title">
+    <h2>{{deck.name}}</h2>
+    <button mat-icon-button matSuffix matTooltip="Edit Deck Name" (click)="onEditDeck()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+  <div id="notes">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Notes</mat-panel-title>
+      </mat-expansion-panel-header>
+      <h3 *ngIf="!deck.notes || deck.notes.length === 0" id="no-notes-message">No Notes for Deck</h3>
+      <div *ngFor="let note of deck.notes">
+        <app-note-display [note]="note" [deckId]="deck.id" (noteUpdated)="onNoteUpdated()"></app-note-display>
+      </div>
+      <div id="notes-actions">
+        <button mat-stroked-button color="primary" (click)="addNewNote()">
+          Add New Note
+        </button>
+      </div>
+    </mat-expansion-panel>
+  </div>
+  <h3 *ngIf="deck.cards.length === 0">No cards in deck</h3>
+  <div *ngFor="let card of deck.cards">
+    <app-deck-card-item [card]="card" (removeCard)="removeCardFromDeck($event)"></app-deck-card-item>
+  </div>
+</div>

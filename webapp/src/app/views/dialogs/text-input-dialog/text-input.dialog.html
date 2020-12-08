@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
-  <form [formGroup]="inputForm">
+  <form [formGroup]="inputForm" (ngSubmit)="onPositiveClick()">
     <mat-form-field appearance="fill">
       <mat-label>
         {{data.inputLabel}}
@@ -12,7 +12,7 @@
 </div>
 
 <div id="actions">
-  <button mat-raised-button color="warn" (click)="onCloseClick()">{{data.cancelText}}</button>
-  <button mat-raised-button color="primary" (click)="onPositiveClick()"
+  <button mat-flat-button color="warn" type="button" (click)="onCloseClick()">{{data.cancelText}}</button>
+  <button mat-flat-button color="primary" type="submit" (click)="onPositiveClick()"
           [disabled]="!inputForm.valid">{{data.positiveText}}</button>
 </div>

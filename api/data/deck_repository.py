@@ -11,7 +11,8 @@ def create_deck(username, deck_name):
         "_id": ObjectId(),
         "username": username,
         "name": deck_name,
-        "cards": []
+        "cards": [],
+        "notes": []
     })
 
 

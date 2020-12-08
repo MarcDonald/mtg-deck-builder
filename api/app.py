@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 import config
 from presenters import (auth_presenter, card_presenter, deck_presenter,
-                        user_presenter)
+                        user_presenter, note_presenter)
 from utils.auth_guards import auth_required
 from utils.exceptions import (AlreadyExistsError, InvalidAccessError,
                               InvalidIdError, NotFoundError, InvalidDataError)
@@ -24,7 +24,8 @@ CORS(app)
 def login():
     login_info = request.get_json()
     try:
-        token = auth_presenter.login(login_info["username"], login_info["password"])
+        token = auth_presenter.login(
+            login_info["username"], login_info["password"])
         return make_response({"token": token.decode("UTF-8")}, 200)
     except Exception as err:
         print(err)
@@ -84,7 +85,8 @@ def search_cards():
         try:
             page_num = get_page_number(request)
             page_size = get_page_size(request)
-            search_result = card_presenter.search_by_name(search_term, page_num, page_size)
+            search_result = card_presenter.search_by_name(
+                search_term, page_num, page_size)
             return make_paginated_response(
                 search_result["data"], page_num, page_size, search_result["count"], 200
             )
@@ -286,8 +288,82 @@ def delete_card_from_deck(deck_id, deck_card_id):
         return make_error_response("{}".format(err), 400)
     except InvalidAccessError:
         return make_error_response("You are not the owner of that deck", 401)
-    except NotFoundError:
-        return make_error_response("Card could not be found in deck", 404)
+    except NotFoundError as err:
+        return make_error_response("{}".format(err), 404)
+
+
+###
+# NOTES ROUTES
+###
+@app.route(prefix + "/notes/<string:deck_id>", methods=["POST"])
+@auth_required
+def add_note_to_deck(deck_id):
+    request_data = request.get_json()
+    token = request.headers["Authorization"]
+    token_data = jwt.decode(token, config.JWT_SECRET)
+    if "note" in request_data:
+        try:
+            result = note_presenter.add_note_to_deck(
+                deck_id, request_data["note"], token_data["username"]
+            )
+            return make_response(jsonify(result), 201)
+        except NotFoundError:
+            return make_error_response("Deck could not be found", 404)
+        except InvalidAccessError:
+            return make_error_response("You are not the owner of that deck", 401)
+        except InvalidIdError:
+            return make_error_response("Invalid deck ID", 400)
+        except InvalidDataError:
+            return make_error_response("All fields must have a value", 400)
+        except Exception as err:
+            return make_error_response("{}".format(err), 500)
+    else:
+        return make_error_response("note must be in body", 400)
+
+
+@app.route(prefix + "/notes/<string:deck_id>/<string:note_id>", methods=["PUT"])
+@auth_required
+def update_note_in_deck(deck_id, note_id):
+    request_data = request.get_json()
+    token = request.headers["Authorization"]
+    token_data = jwt.decode(token, config.JWT_SECRET)
+    if "note" in request_data:
+        try:
+            result = note_presenter.update_note_in_deck(
+                deck_id, note_id, request_data["note"], token_data["username"]
+            )
+            return make_response(jsonify(result), 200)
+        except NotFoundError as err:
+            return make_error_response("{}".format(err), 404)
+        except InvalidAccessError:
+            return make_error_response("You are not the owner of that deck", 401)
+        except InvalidIdError:
+            return make_error_response("Invalid deck ID", 400)
+        except InvalidDataError:
+            return make_error_response("All fields must have a value", 400)
+        except Exception as err:
+            return make_error_response("{}".format(err), 500)
+    else:
+        return make_error_response("note must be in body", 400)
+
+
+
+@app.route(prefix + "/notes/<string:deck_id>/<string:note_id>", methods=["DELETE"])
+@auth_required
+def delete_note_from_deck(deck_id, note_id):
+    token = request.headers["Authorization"]
+    token_data = jwt.decode(token, config.JWT_SECRET)
+    try:
+        note_presenter.delete_note_from_deck(
+            deck_id, note_id, token_data["username"]
+        )
+        return make_response(jsonify({}), 200)
+    except InvalidIdError as err:
+        return make_error_response("{}".format(err), 400)
+    except InvalidAccessError:
+        return make_error_response("You are not the owner of that deck", 401)
+    except NotFoundError as err:
+        return make_error_response("{}".format(err), 404)
 
 
 if __name__ == "__main__":
