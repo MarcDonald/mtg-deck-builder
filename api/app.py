@@ -35,6 +35,7 @@ def login():
 @app.route(prefix + "/login/token", methods=["POST"])
 @auth_required
 def token_login():
+    # Can just return success since the @auth_required validates the token
     return make_response(jsonify({"message": "Success"}), 200)
 
 
@@ -103,7 +104,7 @@ def get_card_details(card_id):
         card = card_presenter.get_card_details(card_id)
         return make_response(jsonify(card), 200)
     except InvalidIdError:
-        return make_error_response("cardId is invalid", 400)
+        return make_error_response("Card ID is invalid", 400)
     except NotFoundError:
         return make_error_response("Card could not be found", 404)
 
@@ -274,14 +275,14 @@ def add_card_to_deck(deck_id, card_id):
         return make_error_response("{}".format(err), 400)
 
 
-@app.route(prefix + "/decks/<string:deck_id>/<string:deck_card_id>", methods=["DELETE"])
+@app.route(prefix + "/decks/<string:deck_id>/<string:card_deck_id>", methods=["DELETE"])
 @auth_required
-def delete_card_from_deck(deck_id, deck_card_id):
+def delete_card_from_deck(deck_id, card_deck_id):
     token = request.headers["Authorization"]
     token_data = jwt.decode(token, config.JWT_SECRET)
     try:
         deck_presenter.delete_card_from_deck(
-            deck_id, deck_card_id, token_data["username"]
+            deck_id, card_deck_id, token_data["username"]
         )
         return make_response(jsonify({}), 200)
     except InvalidIdError as err:
@@ -345,7 +346,6 @@ def update_note_in_deck(deck_id, note_id):
             return make_error_response("{}".format(err), 500)
     else:
         return make_error_response("note must be in body", 400)
-
 
 
 @app.route(prefix + "/notes/<string:deck_id>/<string:note_id>", methods=["DELETE"])

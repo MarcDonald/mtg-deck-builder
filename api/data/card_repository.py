@@ -16,7 +16,7 @@ def search_by_name(card_name, page_size, page_start):
     return search_results
 
 
-def search_by_name_count(card_name):
+def search_by_name_total_count(card_name):
     search_regex = re.compile("^.*{}.*$".format(card_name), re.IGNORECASE)
     return cards.count({"name": search_regex})
 

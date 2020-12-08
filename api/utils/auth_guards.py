@@ -21,7 +21,7 @@ def auth_required(func):
             return jsonify({'message': 'Token has been cancelled'}), 401
 
         try:
-            data = jwt.decode(token, config.JWT_SECRET)
+            jwt.decode(token, config.JWT_SECRET)
         except Exception:
             return jsonify({'message': 'Token is invalid'}), 401
         return func(*args, **kwargs)

@@ -17,7 +17,11 @@ def create_deck(username, deck_name):
 
 
 def get_owner_of_deck(deck_id):
-    return decks.find_one({"_id": ObjectId(deck_id)}, {"username": 1})
+    result = decks.find_one({"_id": ObjectId(deck_id)}, {"username": 1})
+    if result is not None:
+        return result['username']
+    else:
+        return None
 
 
 def update_deck_details(deck_id, deck_name):
@@ -48,17 +52,17 @@ def get_user_deck_count(username):
 
 def add_card_to_deck(deck_id, card_id):
     card = card_repository.get_card_details(card_id)
-    # deck_card_id is the id of the card within the deck, this is so a single card can be removed without removing
-    # all cards with the same ID
-    deck_card_id = ObjectId()
-    card['deck_card_id'] = deck_card_id
+    # card_deck_id is the id of the card within the deck, this is so a single card can be removed without removing
+    # all cards with the same base card ID
+    card_deck_id = ObjectId()
+    card['card_deck_id'] = card_deck_id
     decks.update_one({"_id": ObjectId(deck_id)}, {"$push": {
         "cards": card
     }})
-    return deck_card_id
+    return card_deck_id
 
 
-def delete_card_from_deck(deck_id, deck_card_id):
+def delete_card_from_deck(deck_id, card_deck_id):
     return decks.update_one({"_id": ObjectId(deck_id)}, {"$pull": {
-        "cards": {"deck_card_id": ObjectId(deck_card_id)}
+        "cards": {"card_deck_id": ObjectId(card_deck_id)}
     }})

@@ -3,6 +3,7 @@ from bson import ObjectId
 from data.database_interactor import db
 
 users = db.users
+decks = db.decks
 
 
 def create_user(username, given_name, family_name, password):
@@ -21,6 +22,7 @@ def get_user_details(username):
 
 def delete_user(username):
     users.delete_one({"username": username})
+    decks.delete_many({"username": username})
 
 
 def update_user(username, given_name, family_name):
