@@ -58,7 +58,7 @@ def register_new_user():
             and "password" in login_info
     ):
         try:
-            result = auth_presenter.create_user(
+            result = user_presenter.create_user(
                 login_info["username"],
                 login_info["givenName"],
                 login_info["familyName"],

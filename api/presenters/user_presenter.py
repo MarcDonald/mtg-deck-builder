@@ -1,6 +1,6 @@
 from data import user_repository
-from utils.exceptions import NotFoundError, InvalidDataError
-
+from utils.exceptions import NotFoundError, InvalidDataError, AlreadyExistsError
+import bcrypt
 
 def get_user_details(username):
     user = user_repository.get_user_details(username)
@@ -26,3 +26,17 @@ def update_user(username, given_name, family_name):
             "familyName": family_name
         }
     raise InvalidDataError()
+
+
+def create_user(username, given_name, family_name, password):
+    check_username_result = user_repository.get_user_details(username)
+    if check_username_result is not None:
+        raise AlreadyExistsError("User with that username already exists")
+    else:
+        hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
+        user_repository.create_user(username, given_name, family_name, hashed_password)
+        return {
+            "username": username,
+            "givenName": given_name,
+            "familyName": family_name
+        }

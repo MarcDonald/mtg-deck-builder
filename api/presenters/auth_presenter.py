@@ -21,17 +21,3 @@ def login(username, password):
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
             }, config.JWT_SECRET)
             return token
-
-
-def create_user(username, given_name, family_name, password):
-    check_username_result = user_repository.get_user_details(username)
-    if check_username_result is not None:
-        raise AlreadyExistsError("User with that username already exists")
-    else:
-        hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
-        user_repository.create_user(username, given_name, family_name, hashed_password)
-        return {
-            "username": username,
-            "givenName": given_name,
-            "familyName": family_name
-        }
