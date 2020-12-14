@@ -8,6 +8,9 @@ import { TextInputDialog } from '../../dialogs/text-input-dialog/text-input.dial
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * Displays a list of the users decks, as well as the option to create a new deck
+ */
 @Component({
   selector: 'app-deck-drawer',
   templateUrl: './deck-drawer.component.html',

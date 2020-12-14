@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+/**
+ * The form that allows existing users to sign in
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

@@ -3,6 +3,9 @@ import DeckCard from '../../../../models/deck-card';
 import { MatDialog } from '@angular/material/dialog';
 import { CardDetailDialog } from '../../../dialogs/card-detail/card-detail.dialog';
 
+/**
+ * Component that is intended to display the details of a card within a deck
+ */
 @Component({
   selector: 'app-deck-card-item',
   templateUrl: './card-in-deck-display-item.component.html',

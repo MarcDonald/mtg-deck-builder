@@ -7,6 +7,9 @@ interface CardDetailDialogData {
   name: string;
 }
 
+/**
+ * Dialog that displays the full details of a card
+ */
 @Component({
   selector: 'app-are-you-sure-dialog',
   templateUrl: './card-detail.dialog.html',

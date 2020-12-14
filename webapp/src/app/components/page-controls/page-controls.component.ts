@@ -2,6 +2,9 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import Page from '../../models/page';
 
+/**
+* Controls for navigating paginated data
+*/
 @Component({
   selector: 'app-page-controls',
   templateUrl: './page-controls.component.html',

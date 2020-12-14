@@ -9,6 +9,9 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
+/**
+ * Guard to ensure that the user is logged out
+ */
 @Injectable({
   providedIn: 'root',
 })

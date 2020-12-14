@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Page that is displayed when the user is logged out
+ */
 @Component({
   selector: 'app-logged-out',
   templateUrl: './logged-out.component.html',

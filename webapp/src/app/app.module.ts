@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CardSearchView } from './views/decks/card-search/card-search.view';
+import { CardSearchView } from './views/decks/card-search/card-search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CardSearchResultItemComponent } from './views/decks/card-search/card-search-result-item/card-search-result-item.component';
 import { LoggedOutComponent } from './views/logged-out/logged-out.component';

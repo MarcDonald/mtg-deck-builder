@@ -3,6 +3,9 @@ import Card from '../../../../models/card';
 import { CardDetailDialog } from '../../../dialogs/card-detail/card-detail.dialog';
 import { MatDialog } from '@angular/material/dialog';
 
+/**
+ * Component intended to be used to display card information in a search result
+ */
 @Component({
   selector: 'app-card-search-result-item',
   templateUrl: './card-search-result-item.component.html',

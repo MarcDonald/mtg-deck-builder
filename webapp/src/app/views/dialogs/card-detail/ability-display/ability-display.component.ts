@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import Ability from '../../../../models/ability';
 
+/**
+ * Component intended to be used in the card-detail dialog to display a single
+ * ability of a card
+ */
 @Component({
   selector: 'app-ability-display',
   templateUrl: './ability-display.component.html',

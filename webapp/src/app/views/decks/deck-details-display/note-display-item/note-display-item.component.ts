@@ -8,6 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AreYouSureDialog } from '../../../dialogs/are-you-sure/are-you-sure.dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * Component intended to display the details of a note
+ */
 @Component({
   selector: 'app-note-display',
   templateUrl: './note-display-item.component.html',

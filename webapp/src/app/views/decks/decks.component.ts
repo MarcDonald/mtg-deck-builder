@@ -7,6 +7,10 @@ import { catchError } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * Main decks page that contains the deck list drawer, the main deck
+ * view and the ability to search and add cards to a deck
+ */
 @Component({
   selector: 'app-decks',
   templateUrl: './decks.component.html',

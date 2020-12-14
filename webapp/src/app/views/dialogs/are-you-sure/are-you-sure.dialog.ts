@@ -5,6 +5,9 @@ interface AreYouSureDialogData {
   content: string;
 }
 
+/**
+ * Dialog to confirm an action
+ */
 @Component({
   selector: 'app-are-you-sure-dialog',
   templateUrl: './are-you-sure.dialog.html',

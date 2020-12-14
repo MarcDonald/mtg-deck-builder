@@ -8,6 +8,10 @@ import { TextInputDialog } from '../../dialogs/text-input-dialog/text-input.dial
 import { NoteService } from '../../../services/note.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * Component that details of a deck, the notes attached to the deck, and a list of cards
+ * in the deck
+ */
 @Component({
   selector: 'app-deck-details-display',
   templateUrl: './deck-details-display.component.html',

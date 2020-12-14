@@ -15,6 +15,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AreYouSureDialog } from '../dialogs/are-you-sure/are-you-sure.dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * Page that allows the user to edit and delete their user profile
+ */
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

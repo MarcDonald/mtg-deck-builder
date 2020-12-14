@@ -14,6 +14,9 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
 
+/**
+ * The form that allows news users to register an account
+ */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

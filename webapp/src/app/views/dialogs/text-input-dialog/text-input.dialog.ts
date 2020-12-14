@@ -10,6 +10,9 @@ interface TextInputDialogData {
   defaultTextValue?: string;
 }
 
+/**
+ * Dialog that allows the user to input text, then returns that text when closed
+ */
 @Component({
   selector: 'app-text-input-dialog',
   templateUrl: './text-input.dialog.html',

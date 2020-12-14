@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
+/**
+ * Header for the application
+ */
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

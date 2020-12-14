@@ -7,10 +7,13 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * Component that allows you to search for cards and display the returned list
+ */
 @Component({
   selector: 'app-card-search',
-  templateUrl: './card-search.view.html',
-  styleUrls: ['./card-search.view.scss'],
+  templateUrl: './card-search.component.html',
+  styleUrls: ['./card-search.component.scss'],
 })
 export class CardSearchView implements OnInit {
   page: Page<Array<Card>> = null;

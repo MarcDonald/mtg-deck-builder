@@ -3,6 +3,9 @@ import DeckShort from '../../../../models/deck-short';
 import { AreYouSureDialog } from '../../../dialogs/are-you-sure/are-you-sure.dialog';
 import { MatDialog } from '@angular/material/dialog';
 
+/**
+ * Component intended to be used in a list to display brief information about a deck
+ */
 @Component({
   selector: 'app-user-deck-short-item',
   templateUrl: './user-deck-short-item.component.html',
